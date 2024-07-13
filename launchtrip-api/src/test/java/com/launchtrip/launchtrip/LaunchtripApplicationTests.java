@@ -1,4 +1,4 @@
-package com.enriqueengineers.launchtrip;
+package com.launchtrip.launchtrip;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

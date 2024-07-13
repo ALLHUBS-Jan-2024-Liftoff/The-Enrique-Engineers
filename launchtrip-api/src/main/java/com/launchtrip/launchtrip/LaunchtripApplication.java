@@ -1,4 +1,4 @@
-package com.enriqueengineers.launchtrip;
+package com.launchtrip.launchtrip;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
