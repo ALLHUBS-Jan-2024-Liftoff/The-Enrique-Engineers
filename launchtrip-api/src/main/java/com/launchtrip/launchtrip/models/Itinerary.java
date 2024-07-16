@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Location {
+public class Itinerary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,10 +14,10 @@ public class Location {
     private String name;
     private Boolean visited;
 
-    public Location() {
+    public Itinerary() {
     }
 
-    public Location(String description, String assigned) {
+    public Itinerary(String description, String assigned) {
         this.name = description;
         this.visited = false;
     }
