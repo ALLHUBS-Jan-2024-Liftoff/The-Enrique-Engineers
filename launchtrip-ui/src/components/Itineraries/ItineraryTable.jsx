@@ -1,7 +1,7 @@
 import React from "react";
-import { TodoRowItem } from "./TodoRowItem";
+import { ItineraryRowItem } from "./ItineraryRowItem";
 
-export const ToDoTable = ({ todos, deleteTodo }) => {
+export const ItineraryTable = ({ itineraries, deleteItinerary }) => {
   return (
     <table className="table table-hover">
       <thead>
@@ -13,8 +13,8 @@ export const ToDoTable = ({ todos, deleteTodo }) => {
         </tr>
       </thead>
       <tbody>
-        {todos.map((todo) => (
-          <TodoRowItem key={todo.id} todo={todo} deleteTodo={deleteTodo} />
+        {itineraries.map((itinerary) => (
+          <ItineraryRowItem key={itinerary.id} itinerary={itinerary} deleteItinerary={deleteItinerary} />
         ))}
       </tbody>
     </table>

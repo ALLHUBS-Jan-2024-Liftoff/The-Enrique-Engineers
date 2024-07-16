@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-export const NewTodoForm = ({ addTodo }) => {
-  const [assigned, setAssigned] = useState("");
-  const [description, setDescription] = useState("");
+export const NewItineraryForm = ({ addItinerary }) => {
+  const [visited, setVisited] = useState("");
+  const [name, setName] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (description !== "" && assigned !== "") {
-      addTodo(description, assigned);
-      setAssigned("");
-      setDescription("");
+    if (name !== "" && visited !== "") {
+      addItinerary(name, visited);
+      setVisited("");
+      setName("");
     }
   };
 
@@ -18,30 +18,30 @@ export const NewTodoForm = ({ addTodo }) => {
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">
-            Assigned
+            Visited
             <input
               type="text"
               className="form-control"
-              value={assigned}
-              onChange={(e) => setAssigned(e.target.value)}
+              value={visited}
+              onChange={(e) => setVisited(e.target.value)}
               required
             />
           </label>
         </div>
         <div className="mb-3">
           <label className="form-label">
-            Description
+            Name
             <textarea
               rows={3}
               className="form-control"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </label>
         </div>
         <button type="submit" className="btn btn-primary mt-3">
-          Add Todo
+          Add Itinerary
         </button>
       </form>
     </div>
