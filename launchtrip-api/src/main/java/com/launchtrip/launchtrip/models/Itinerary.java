@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Itinerary {
     @Id
@@ -14,12 +17,22 @@ public class Itinerary {
     private String name;
     private Boolean visited;
 
+    private List<Location> locations = new ArrayList<>();
+
     public Itinerary() {
     }
 
     public Itinerary(String description, String assigned) {
         this.name = description;
         this.visited = false;
+    }
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void addLocation(Location newLocation) {
+        locations.add(newLocation);
     }
 
     public Long getId() {
