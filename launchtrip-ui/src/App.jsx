@@ -7,7 +7,7 @@ import { ItinerariesPage } from './components/Itineraries/ItinerariesPage'
 function App() {
   const [count, setCount] = useState(0)
 
-// start coding frontend here - to pull from itineraries.jsx
+// start coding frontend here - to pull from "services" files
 
   return (
     <>
