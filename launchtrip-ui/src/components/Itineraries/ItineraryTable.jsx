@@ -6,10 +6,9 @@ export const ItineraryTable = ({ itineraries, deleteItinerary }) => {
     <table className="table table-hover">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Description</th>
-          <th scope="col">Assigned</th>
-          <th scope="col">Actions</th>
+          <th scope="col">Id #</th>
+          <th scope="col">Place Name</th>
+          <th scope="col">Visited</th>
         </tr>
       </thead>
       <tbody>
