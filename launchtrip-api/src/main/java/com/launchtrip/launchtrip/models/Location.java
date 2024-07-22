@@ -17,7 +17,6 @@ public class Location {
     private String address;
 
     public Location() {
-
     }
 
     public Location(String name, String address) {
