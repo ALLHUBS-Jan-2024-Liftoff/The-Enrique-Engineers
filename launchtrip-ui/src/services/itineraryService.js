@@ -12,10 +12,10 @@ export const fetchItineraries = async () => {
   }
 };
 
-export const addItinerary = async (description, assigned) => {
+export const addItinerary = async (name, visited) => {
   try {
     const response = await axios.post(`${BASEAPIURL}/api/itineraries/new`, null, {
-      params: { description, assigned },
+      params: { name, visited },
     });
     return response.data;
   } catch (error) {
@@ -24,13 +24,25 @@ export const addItinerary = async (description, assigned) => {
   }
 };
 
-export const deleteItinerary = async (todoId) => {
+export const deleteItinerary = async (itineraryId) => {
   try {
     await axios.post(`${BASEAPIURL}/api/itineraries/delete`, null, {
-      params: { todoId },
+      params: { itineraryId },
     });
   } catch (error) {
     console.error("There was an error deleting the itinerary!", error);
     throw error;
   }
 };
+
+export const addLocationToItinerary = async (itineraryId, locationId) => {
+  try {
+      const response = await axios.post(`${BASEAPIURL}/api/itineraries/edit`, null, {
+        params: { itineraryId, locationId },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("There was an error adding location to itinerary!", error);
+      throw error;
+    }
+}

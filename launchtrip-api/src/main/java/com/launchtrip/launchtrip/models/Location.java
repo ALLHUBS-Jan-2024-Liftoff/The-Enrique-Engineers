@@ -17,12 +17,19 @@ public class Location {
     private String address;
 
     public Location() {
-
     }
 
     public Location(String name, String address) {
         this.name = name;
         this.address = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
