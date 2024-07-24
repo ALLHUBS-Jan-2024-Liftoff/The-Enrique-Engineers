@@ -29,6 +29,7 @@ public class LocationController {
 
     @PostMapping("/delete")
     public void deleteLocation(@RequestParam Long locationId) {
+        System.out.println("Removing location: " + locationId);
         locationRepository.deleteById(locationId);
     }
 }

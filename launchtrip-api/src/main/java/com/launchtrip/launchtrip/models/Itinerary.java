@@ -20,9 +20,9 @@ public class Itinerary {
     public Itinerary() {
     }
 
-    public Itinerary(String description, String assigned) {
+    public Itinerary(String description, Boolean visited) {
         this.name = description;
-        this.visited = false;
+        this.visited = visited;
     }
 
     public List<Location> getLocations() {
