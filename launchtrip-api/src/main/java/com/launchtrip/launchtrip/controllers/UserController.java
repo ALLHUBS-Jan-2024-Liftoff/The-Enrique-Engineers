@@ -8,14 +8,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
+
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @GetMapping("/{id}")
@@ -23,18 +25,30 @@ public class UserController {
         return userRepository.findById(id).orElse(null);
     }
 
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
     @GetMapping("/username/{username}")
     public User getUserByUsername(@PathVariable String username) {
         return userRepository.findByUsername(username);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    @PostMapping("/new")
+    public User createUser(@RequestParam String username, @RequestParam String password, @RequestParam String firstName, @RequestParam String lastName) {
+        User newUser = new User(username, password, firstName, lastName);
+        return userRepository.save(newUser);
+    }
+
+    @PostMapping("/delete")
+    public void deleteUser(@RequestParam Long id) {
         userRepository.deleteById(id);
     }
+
+    @PostMapping("/edit")
+    public void updateUser(@RequestParam Long userId, @RequestParam String username, @RequestParam String password, @RequestParam String firstName, @RequestParam String lastName) {
+        User userToUpdate = userRepository.getReferenceById(userId);
+        userToUpdate.setUsername(username);
+        userToUpdate.setPassword(password);
+        userToUpdate.setFirstName(firstName);
+        userToUpdate.setLastName(lastName);
+        userRepository.save(userToUpdate);
+    }
+
 }
