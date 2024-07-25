@@ -7,8 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/LoginRegistration")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
+
+
 
     @Autowired
     private UserRepository userRepository;
@@ -33,6 +36,7 @@ public class AuthController {
             return ResponseEntity.ok("Registration successful");
         }
     }
+
 }
 
 

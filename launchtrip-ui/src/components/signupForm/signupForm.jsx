@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import './signupForm.css'
+import axios from 'axios'; // Import Axios
+import './signupForm.css'; // Assuming you have some CSS styling
+import instance from './AxiosConfig.jsx'
+
+
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -20,30 +23,26 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin) {
-      try {
-        const response = await axios.post('/api/login', {
+    try {
+      if (isLogin) {
+        const response = await instance.post('/login', {
           username: userData.username,
           password: userData.password
         });
         console.log('Login successful:', response.data);
         // Handle successful login (e.g., redirect to dashboard)
-      } catch (error) {
-        console.error('Login error:', error);
-        // Handle login error (e.g., show error message)
-      }
-    } else {
-      try {
-        const response = await axios.post('/api/register', {
+      } else {
+        const response = await instance.post('/register', {
           username: userData.username,
           password: userData.password
         });
         console.log('Registration successful:', response.data);
         // Handle successful registration (e.g., show success message)
-      } catch (error) {
-        console.error('Registration error:', error);
-        // Handle registration error (e.g., show error message)
       }
+      // Optionally, perform additional actions after successful authentication or registration
+    } catch (error) {
+      console.error('Authentication error:', error);
+      // Handle authentication error (e.g., show error message to user)
     }
   };
 
@@ -51,7 +50,7 @@ const LoginForm = () => {
     <div className="form-container">
       <form onSubmit={handleSubmit}>
         <div>
-            <h1 className="form-header">Login or Register Here!</h1>
+          <h1 className="form-header">Login or Register Here!</h1>
           <label htmlFor="username">Username:</label>
           <input
             type="text"
