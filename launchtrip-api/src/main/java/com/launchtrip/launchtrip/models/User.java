@@ -26,12 +26,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String firstName, String lastName, int points) {
+    public User(String username, String password, String firstName, String lastName) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.points = points;
     }
 
 
@@ -73,14 +72,6 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     public List<Itinerary> getItineraries() {
