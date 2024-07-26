@@ -1,9 +1,6 @@
 package com.launchtrip.launchtrip.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +14,15 @@ public class Itinerary {
     private String name;
     private Boolean visited;
 
+    @OneToMany
     private List<Location> locations = new ArrayList<>();
 
     public Itinerary() {
     }
 
-    public Itinerary(String description, String assigned) {
+    public Itinerary(String description, Boolean visited) {
         this.name = description;
-        this.visited = false;
+        this.visited = visited;
     }
 
     public List<Location> getLocations() {
