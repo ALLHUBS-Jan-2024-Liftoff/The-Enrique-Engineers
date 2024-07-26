@@ -14,7 +14,7 @@ export const LocationsPage = () => {
       .catch((error) => {
         console.error("There was an error fetching the locations!", error);
       });
-  }, []);
+  }, [locations]);
 
   const handleCreateLocation = (name, address) => {
     createLocation(name, address)
