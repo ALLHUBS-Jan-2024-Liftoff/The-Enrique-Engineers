@@ -18,9 +18,22 @@ public class GeoapifyService {
     private static final String BASE_URL = "http://api.geoapify.com";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
 
-    public List<Location> getLocationsInCity() throws IOException {
+    public List<Location> getLocationsInCity(String searchName) throws IOException {
         // ToDo: call Geocoding API to get the converted place ID
-        String convertedPlaceIdFilter = "filter=place:515ec1c89203a357c0597c3bac72a18b4340f00101f901d026020000000000c0020692030b4b616e7361732043697479";
+
+        if (searchName.contains(" ")) {
+            searchName.replace(" ", "%20");
+        }
+
+        OkHttpClient geocodingClient = new OkHttpClient().newBuilder()
+                .build();
+        Request geocodingRequest = new Request.Builder()
+                .url("https://api.geoapify.com/v1/geocode/search?text=" + searchName + "&format=json&apiKey=" + API_KEY)
+                .method("GET", null)
+                .build();
+        Response geocodingResponse = geocodingClient.newCall(geocodingRequest).execute();
+
+        String convertedPlaceIdFilter = "filter=place:51411da04500a557c05942959a3dd08c4340f00101f901d026020000000000c00208";
 
         // Start Building URL
 
@@ -43,18 +56,18 @@ public class GeoapifyService {
         placesUrl += "&" + convertedPlaceIdFilter;
 
         // Make the HTTP Call
-        OkHttpClient client = new OkHttpClient().newBuilder()
+        OkHttpClient placesClient = new OkHttpClient().newBuilder()
                 .build();
-        Request request = new Request.Builder()
+        Request placesRequest = new Request.Builder()
                 .url(placesUrl)
                 .method("GET", null)
                 .build();
-        Response response = client.newCall(request).execute();
+        Response placesResponse = placesClient.newCall(placesRequest).execute();
 
         List<Location> locations = new ArrayList<>();
 
-        if (response.isSuccessful()) {
-            ResponseBody responseBody = response.body();
+        if (placesResponse.isSuccessful()) {
+            ResponseBody responseBody = placesResponse.body();
             if (responseBody != null) {
                 // Parse the response to a list of Location objects
                 ObjectMapper objectMapper = new ObjectMapper();

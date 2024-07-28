@@ -16,10 +16,10 @@ public class LocationController {
     @Autowired
     private GeoapifyService geoapifyService;
 
-    @GetMapping
-    public List<Location> getAllLocations() {
+    @PostMapping
+    public List<Location> getAllLocations(@RequestParam String searchName) {
         try {
-            return geoapifyService.getLocationsInCity();
+            return geoapifyService.getLocationsInCity(searchName);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
