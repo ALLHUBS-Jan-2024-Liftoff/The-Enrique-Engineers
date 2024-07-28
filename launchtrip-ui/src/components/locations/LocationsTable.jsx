@@ -8,7 +8,11 @@ export const LocationsTable = ({ locations, deleteLocation }) => {
         <tr>
           <th scope="col">Id #</th>
           <th scope="col">Place Name</th>
-          <th scope="col">Address</th>
+          <th scope="col">State</th>
+          <th scope="col">Country</th>
+          <th scope="col">Postcode</th>
+          <th scope="col">Categories</th>
+          <th scope="col">Actions</th>
         </tr>
       </thead>
       <tbody>
