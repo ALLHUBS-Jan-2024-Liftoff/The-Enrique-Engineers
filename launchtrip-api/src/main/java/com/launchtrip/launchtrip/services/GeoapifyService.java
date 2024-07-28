@@ -7,16 +7,18 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class GeoapifyService {
     private static final String BASE_URL = "//api.geoapify.com";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
 
-    public List<Location> getLocationsInCity(String city, String state) throws IOException {
+    public List<Location> getLocationsInCity(String city) throws IOException {
         // ToDo: call Geocoding API to get the converted place ID
         String convertedPlaceIdFilter = "filter=place:515ec1c89203a357c0597c3bac72a18b4340f00101f901d026020000000000c0020692030b4b616e7361732043697479";
 
