@@ -17,9 +17,9 @@ public class LocationController {
     private GeoapifyService geoapifyService;
 
     @GetMapping
-    public List<Location> getAllLocations(@RequestParam String city) {
+    public List<Location> getAllLocations() {
         try {
-            return geoapifyService.getLocationsInCity(city);
+            return geoapifyService.getLocationsInCity();
         } catch (IOException e) {
             e.printStackTrace();
             return null;

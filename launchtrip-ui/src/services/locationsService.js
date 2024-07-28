@@ -4,11 +4,7 @@ const BASEAPIURL = "http://localhost:8080";
 
 export const fetchLocations = async () => {
   try {
-    const response = await axios.get(`${BASEAPIURL}/api/locations`, {
-      params: {
-        city: 'Kansas City'
-      }
-    });
+    const response = await axios.get(`${BASEAPIURL}/api/locations`);
     return response.data;
   } catch (error) {
     console.error("There was an error fetching the locations!", error);

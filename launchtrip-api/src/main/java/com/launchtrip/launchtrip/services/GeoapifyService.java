@@ -18,7 +18,7 @@ public class GeoapifyService {
     private static final String BASE_URL = "//api.geoapify.com";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
 
-    public List<Location> getLocationsInCity(String city) throws IOException {
+    public List<Location> getLocationsInCity() throws IOException {
         // ToDo: call Geocoding API to get the converted place ID
         String convertedPlaceIdFilter = "filter=place:515ec1c89203a357c0597c3bac72a18b4340f00101f901d026020000000000c0020692030b4b616e7361732043697479";
 
@@ -41,6 +41,8 @@ public class GeoapifyService {
 
         // Filter Place
         placesUrl += "&" + convertedPlaceIdFilter;
+
+        System.out.println(placesUrl);
 
         // Make the HTTP Call
         OkHttpClient client = new OkHttpClient().newBuilder()
