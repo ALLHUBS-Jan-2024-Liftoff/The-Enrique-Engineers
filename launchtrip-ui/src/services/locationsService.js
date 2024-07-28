@@ -5,6 +5,7 @@ const BASEAPIURL = "http://localhost:8080";
 export const fetchLocations = async () => {
   try {
     const response = await axios.get(`${BASEAPIURL}/api/locations`);
+    //console.log("Response: ", response.data)
     return response.data;
   } catch (error) {
     console.error("There was an error fetching the locations!", error);
@@ -24,14 +25,14 @@ export const fetchLocations = async () => {
 //   }
 // };
 
-// export const deleteLocation = async (locationId) => {
-//   try {
-//     await axios.post(`${BASEAPIURL}/api/locations/delete`, null, {
-//       params: { locationId },
-//     });
-//     console.log("No error when deleting location");
-//   } catch (error) {
-//     console.error("There was an error deleting the location!", error);
-//     throw error;
-//   }
-// };
+export const deleteLocation = async (locationId) => {
+  try {
+    await axios.post(`${BASEAPIURL}/api/locations/delete`, null, {
+      params: { locationId },
+    });
+    console.log("No error when deleting location");
+  } catch (error) {
+    console.error("There was an error deleting the location!", error);
+    throw error;
+  }
+};

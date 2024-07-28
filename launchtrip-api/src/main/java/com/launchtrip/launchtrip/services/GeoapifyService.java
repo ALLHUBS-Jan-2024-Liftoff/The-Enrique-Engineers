@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 public class GeoapifyService {
-    private static final String BASE_URL = "//api.geoapify.com";
+    private static final String BASE_URL = "http://api.geoapify.com";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
 
     public List<Location> getLocationsInCity() throws IOException {
@@ -41,8 +41,6 @@ public class GeoapifyService {
 
         // Filter Place
         placesUrl += "&" + convertedPlaceIdFilter;
-
-        System.out.println(placesUrl);
 
         // Make the HTTP Call
         OkHttpClient client = new OkHttpClient().newBuilder()

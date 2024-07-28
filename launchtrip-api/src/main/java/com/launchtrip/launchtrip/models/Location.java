@@ -15,7 +15,6 @@ public class Location {
     private Long id;
 
     private String name;
-
     private String usState;
     private String country;
     private String postcode;
