@@ -37,7 +37,7 @@ public class GeoapifyService {
 
         // Place Types
         // ToDo: create a method for taking in a place type and converting it to a geoapify category
-        placesUrl += "&categories=commercial.supermarket";
+        placesUrl += "&categories=entertainment,natural,catering.restaurant,catering.cafe,catering.bar,catering.taproom";
 
         // Filter Place
         placesUrl += "&" + convertedPlaceIdFilter;
