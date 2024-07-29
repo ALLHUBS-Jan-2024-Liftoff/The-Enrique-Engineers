@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import Axios
+import instance from './AxiosConfig.jsx'; // Import Axios instance
 import './signupForm.css'; // Assuming you have some CSS styling
-import instance from './AxiosConfig.jsx'
-
-
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -39,7 +36,6 @@ const LoginForm = () => {
         console.log('Registration successful:', response.data);
         // Handle successful registration (e.g., show success message)
       }
-      // Optionally, perform additional actions after successful authentication or registration
     } catch (error) {
       console.error('Authentication error:', error);
       // Handle authentication error (e.g., show error message to user)
