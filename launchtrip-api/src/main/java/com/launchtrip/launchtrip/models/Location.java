@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.List;
+
 @Entity
 public class Location {
 
@@ -13,23 +15,24 @@ public class Location {
     private Long id;
 
     private String name;
-
-    private String address;
+    private String usState;
+    private String country;
+    private String postcode;
+    private List<String> categories;
 
     public Location() {
     }
 
-    public Location(String name, String address) {
+    public Location(String name, String usState, String country, String postcode, List<String> categories) {
         this.name = name;
-        this.address = address;
+        this.usState = usState;
+        this.country = country;
+        this.postcode = postcode;
+        this.categories = categories;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -40,12 +43,36 @@ public class Location {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getUsState() {
+        return usState;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setUsState(String usState) {
+        this.usState = usState;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
     }
 }
 
