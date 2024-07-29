@@ -64,6 +64,8 @@ public class GeoapifyService {
                 .build();
         Response placesResponse = placesClient.newCall(placesRequest).execute();
 
+        // Convert placesResponse JSON to an array list of Locations
+
         List<Location> locations = new ArrayList<>();
 
         if (placesResponse.isSuccessful()) {
