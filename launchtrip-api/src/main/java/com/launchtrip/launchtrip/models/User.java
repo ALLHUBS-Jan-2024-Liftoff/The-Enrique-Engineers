@@ -4,14 +4,35 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
+    private int points = 0;
+
+    @OneToMany(mappedBy = "user")
+    private List<Itinerary> itineraries = new ArrayList<>();
+
+    public User() {
+    }
+
+    public User(String username, String password, String firstName, String lastName) {
+        this.username = username; // add validation annotations? @Size (min= , max= ) @NotNull
+        this.password = password; // add validation annotations? @Size (min= , max= ) @NotNull
+        this.firstName = firstName; // add validation annotations? @NotNull
+        this.lastName = lastName; // add validation annotations? @NotNull
+    }
+
 
     public Long getId() {
         return id;
@@ -37,10 +58,28 @@ public class User {
         this.password = password;
     }
 
-    // Getters and setters
-    // Constructors
-    // Other methods as needed
+    public String getFirstName() {
+        return firstName;
+    }
 
-    // Implement constructors and getters/setters
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public List<Itinerary> getItineraries() {
+        return itineraries;
+    }
+
+    public void setItineraries(List<Itinerary> itineraries) {
+        this.itineraries = itineraries;
+    }
+
 }
-

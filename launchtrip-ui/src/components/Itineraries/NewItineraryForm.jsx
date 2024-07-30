@@ -6,8 +6,8 @@ export const NewItineraryForm = ({ addItinerary }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name !== "" && visited !== "") {
-      addItinerary(name, visited);
+    if (name !== "" /*&& visited !== ""*/) {
+      addItinerary(name, false);
       setVisited("");
       setName("");
     }
@@ -17,7 +17,7 @@ export const NewItineraryForm = ({ addItinerary }) => {
     <div className="mt-5">
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label">
+          {/* <label className="form-label">
             Visited
             <input
               type="text"
@@ -26,7 +26,7 @@ export const NewItineraryForm = ({ addItinerary }) => {
               onChange={(e) => setVisited(e.target.value)}
               required
             />
-          </label>
+          </label> */}
         </div>
         <div className="mb-3">
           <label className="form-label">

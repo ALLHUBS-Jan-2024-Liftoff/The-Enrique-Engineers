@@ -14,7 +14,7 @@ export const ItinerariesPage = () => {
       .catch((error) => {
         console.error("There was an error fetching the itineraries!", error);
       });
-  }, []);
+  }, [itineraries]);
 
   const handleAddItinerary = (name, visited) => {
     addItinerary(name, visited)
