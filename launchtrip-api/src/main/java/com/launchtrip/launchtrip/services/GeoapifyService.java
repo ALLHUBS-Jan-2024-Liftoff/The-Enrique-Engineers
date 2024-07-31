@@ -18,20 +18,7 @@ public class GeoapifyService {
     private static final String BASE_URL = "http://api.geoapify.com";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
 
-    public List<Location> getLocationsInCity(String searchName) throws IOException {
-        // ToDo: call Geocoding API to get the converted place ID
-
-        if (searchName.contains(" ")) {
-            searchName.replace(" ", "%20");
-        }
-
-        OkHttpClient geocodingClient = new OkHttpClient().newBuilder()
-                .build();
-        Request geocodingRequest = new Request.Builder()
-                .url("https://api.geoapify.com/v1/geocode/search?text=" + searchName + "&format=json&apiKey=" + API_KEY)
-                .method("GET", null)
-                .build();
-        Response geocodingResponse = geocodingClient.newCall(geocodingRequest).execute();
+    public List<Location> getLocationsInCity() throws IOException {
 
         String convertedPlaceIdFilter = "filter=place:51411da04500a557c05942959a3dd08c4340f00101f901d026020000000000c00208";
 

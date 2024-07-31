@@ -3,6 +3,7 @@ package com.launchtrip.launchtrip.controllers;
 import com.launchtrip.launchtrip.models.Location;
 import com.launchtrip.launchtrip.models.data.LocationRepository;
 import com.launchtrip.launchtrip.services.GeoapifyService;
+import com.launchtrip.launchtrip.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,15 +17,29 @@ public class LocationController {
     @Autowired
     private GeoapifyService geoapifyService;
 
-    @PostMapping
-    public List<Location> getAllLocations(@RequestParam String searchName) {
+    @Autowired
+    private SearchService searchService;
+
+    @GetMapping
+    public List<Location> getAllLocations() {
         try {
-            return geoapifyService.getLocationsInCity(searchName);
+            return geoapifyService.getLocationsInCity();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
+
+    @GetMapping("/search")
+    public List<Location> searchLocations(@RequestParam String searchQuery) {
+        try {
+            return searchService.searchLocationsFromQuery(searchQuery);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 //    @PostMapping("/new")
 //    public Location createLocation(@RequestParam String name, @RequestParam String address) {

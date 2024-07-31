@@ -17,6 +17,10 @@ public class Itinerary {
     @OneToMany
     private List<Location> locations = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Itinerary() {
     }
 
