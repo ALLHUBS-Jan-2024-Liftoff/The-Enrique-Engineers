@@ -54,6 +54,7 @@ public class SearchService {
             }
         }
 
+
             // Start Building URL
 
             // Append v2/places
@@ -72,7 +73,9 @@ public class SearchService {
             placesUrl += "&categories=entertainment,natural,catering.restaurant,catering.cafe,catering.bar,catering.taproom";
 
             // Filter Place
-            placesUrl += "&" + placeId;
+            placesUrl += "&filter=place:" + placeId;
+
+            System.out.println(placesUrl);
 
             // Make the HTTP Call
             OkHttpClient placesClient = new OkHttpClient().newBuilder()

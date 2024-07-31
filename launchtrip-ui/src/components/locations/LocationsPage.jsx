@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchLocations , searchLocations} from "../../services/locationsService";
+import { searchLocations} from "../../services/locationsService";
 import { LocationsTable } from "./LocationsTable";
 import { SearchBar } from "./SearchBar";
 //import { NewLocationForm } from "./NewLocationForm";
@@ -8,14 +8,14 @@ export const LocationsPage = () => {
   // const [showAddForm, setShowAddForm] = useState(false);
   const [locations, setLocations] = useState([]);
 
-  useEffect(() => {
-    // Fetch all locations when the component mounts
-    fetchLocations()
-      .then(setLocations)
-      .catch((error) => {
-        console.error("There was an error fetching the locations!", error);
-      });
-  }, [locations]);
+  // useEffect(() => {
+  //   // Fetch all locations when the component mounts
+  //   fetchLocations()
+  //     .then(setLocations)
+  //     .catch((error) => {
+  //       console.error("There was an error fetching the locations!", error);
+  //     });
+  // }, [locations]);
 
   const handleDeleteLocation = (locationId) => {
     deleteLocation(locationId)

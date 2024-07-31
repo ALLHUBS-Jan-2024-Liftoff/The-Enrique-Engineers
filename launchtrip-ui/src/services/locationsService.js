@@ -2,15 +2,15 @@ import axios from "axios";
 
 const BASEAPIURL = "http://localhost:8080";
 
-export const fetchLocations = async () => {
-  try {
-    const response = await axios.get(`${BASEAPIURL}/api/locations`);
-    return response.data;
-  } catch (error) {
-    console.error("There was an error fetching the locations!", error);
-    throw error;
-  }
-};
+// export const fetchLocations = async () => {
+//   try {
+//     const response = await axios.get(`${BASEAPIURL}/api/locations`);
+//     return response.data;
+//   } catch (error) {
+//     console.error("There was an error fetching the locations!", error);
+//     throw error;
+//   }
+// };
 
 export const searchLocations = (searchQuery) => {
   return axios.get(`${BASEAPIURL}/api/locations/search`, { params: { searchQuery: searchQuery } })
