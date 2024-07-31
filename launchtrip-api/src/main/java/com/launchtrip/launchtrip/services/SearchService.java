@@ -19,7 +19,7 @@ public class SearchService {
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
 
     public List<Location> searchLocationsFromQuery(String searchQuery) throws IOException {
-        // ToDo: call Geocoding API to get the converted place ID
+        // Call Geocoding API to convert search query into PlaceId
 
         if (searchQuery.contains(" ")) {
             searchQuery.replace(" ", "%20");
@@ -38,22 +38,21 @@ public class SearchService {
         // Testing: for now if placeId doesn't work it will default to KC
         String placeId = "51411da04500a557c05942959a3dd08c4340f00101f901d026020000000000c00208";
 
-        if (geocodingResponse.isSuccessful()) {
-            ResponseBody geocodingBody = geocodingResponse.body();
-            if (geocodingBody != null) {
-                // Look through response to get placeId of first result
-                ObjectMapper geocodingMapper = new ObjectMapper();
-                String geocodingString = geocodingBody.string();
-                // Pull placeId
-                JsonNode root = geocodingMapper.readTree(geocodingString);
-                JsonNode results = root.path("results");
-                if (results.isArray() && results.size() > 0) {
-                    JsonNode firstResult = results.get(0);
-                    placeId = firstResult.path("place_id").asText();
+            if (geocodingResponse.isSuccessful()) {
+                ResponseBody geocodingBody = geocodingResponse.body();
+                if (geocodingBody != null) {
+                    // Look through response to get placeId of first result
+                    ObjectMapper geocodingMapper = new ObjectMapper();
+                    String geocodingString = geocodingBody.string();
+                    // Pull placeId
+                    JsonNode root = geocodingMapper.readTree(geocodingString);
+                    JsonNode results = root.path("results");
+                    if (results.isArray() && results.size() > 0) {
+                        JsonNode firstResult = results.get(0);
+                        placeId = firstResult.path("place_id").asText();
+                    }
                 }
             }
-        }
-
 
             // Start Building URL
 
@@ -116,7 +115,6 @@ public class SearchService {
                     }
                 }
             }
-
             return locations;
         }
     }
