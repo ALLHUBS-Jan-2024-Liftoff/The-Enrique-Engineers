@@ -17,9 +17,6 @@ public class Itinerary {
     @OneToMany
     private List<Location> locations = new ArrayList<>();
 
-    @ManyToOne
-    private User user;
-
     public Itinerary() {
     }
 
