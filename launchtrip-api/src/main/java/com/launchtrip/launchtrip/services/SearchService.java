@@ -15,6 +15,9 @@ import java.util.List;
 
 @Service
 public class SearchService {
+
+    // Todo: Separate out into three separate functions (searchLocationsFromQuery, fetchPlaceId, and fetchLocations) to utilize each separately and reduce overlap with GeoapifyService
+
     private static final String BASE_URL = "http://api.geoapify.com";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
 
