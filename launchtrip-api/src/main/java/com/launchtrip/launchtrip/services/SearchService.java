@@ -75,8 +75,6 @@ public class SearchService {
             // Filter Place
             placesUrl += "&filter=place:" + placeId;
 
-            System.out.println(placesUrl);
-
             // Make the HTTP Call
             OkHttpClient placesClient = new OkHttpClient().newBuilder()
                     .build();
