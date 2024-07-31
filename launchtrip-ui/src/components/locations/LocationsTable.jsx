@@ -1,5 +1,6 @@
 import React from "react";
 import { LocationsRowItem } from "./LocationsRowItem";
+import { downloadLocationsFromGeoapify } from "../../services/locationsService";
 
 export const LocationsTable = ({ locations, deleteLocation }) => {
   return (
@@ -19,6 +20,7 @@ export const LocationsTable = ({ locations, deleteLocation }) => {
         {locations.map((location) => (
           <LocationsRowItem key={location.id} location={location} deleteLocation={deleteLocation} />
         ))}
+        <button onClick={downloadLocationsFromGeoapify}>Download locations from GeoApify Service</button>
       </tbody>
     </table>
   );
