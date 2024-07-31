@@ -19,7 +19,6 @@ public class Location {
     private String country;
     private String postcode;
     private List<String> categories;
-    private boolean visited;
 
     public Location() {
     }
@@ -30,7 +29,6 @@ public class Location {
         this.country = country;
         this.postcode = postcode;
         this.categories = categories;
-        this.visited = false;
     }
 
     public Long getId() {
@@ -75,14 +73,6 @@ public class Location {
 
     public void setCategories(List<String> categories) {
         this.categories = categories;
-    }
-
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void setVisited(boolean visited) {
-        this.visited = visited;
     }
 }
 

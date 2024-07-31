@@ -1,5 +1,4 @@
 import React from "react";
-import { markLocationAsVisited } from "../../services/locationsService";
 
 export const LocationsRowItem = ({ location, deleteLocation }) => {
   return (
@@ -11,8 +10,8 @@ export const LocationsRowItem = ({ location, deleteLocation }) => {
       <td>{location.postcode}</td>
       <td>{location.categories.join(", ")}</td>
       <td>
-        <button className="btn btn-danger" onClick={() => markLocationAsVisited(location.id)}>
-        {location.visited ? 'visited' : 'unseen'}
+        <button className="btn btn-danger" onClick={() => deleteLocation(location.id)}>
+          Delete
         </button>
       </td>
     </tr>
