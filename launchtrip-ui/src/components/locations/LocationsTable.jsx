@@ -1,25 +1,13 @@
 import React from "react";
-import { LocationsRowItem } from "./LocationsRowItem";
+import { LocationCard } from "./LocationCard";
 
 export const LocationsTable = ({ locations, deleteLocation }) => {
   return (
-    <table className="table table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Id #</th>
-          <th scope="col">Place Name</th>
-          <th scope="col">State</th>
-          <th scope="col">Country</th>
-          <th scope="col">Postcode</th>
-          <th scope="col">Categories</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {locations.map((location) => (
-          <LocationsRowItem key={location.id} location={location} deleteLocation={deleteLocation} />
-        ))}
-      </tbody>
-    </table>
+    <div className="card-container">
+      {locations.map((location) => (
+        <LocationCard key={location.id} location={location} deleteLocation={deleteLocation} />
+      ))}
+    </div>
   );
 };
+
