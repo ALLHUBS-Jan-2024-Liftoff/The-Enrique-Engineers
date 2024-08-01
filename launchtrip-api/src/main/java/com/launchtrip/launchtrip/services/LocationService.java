@@ -14,10 +14,10 @@ public class LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
-    public void downloadLocationsFromGeoapify() {
+    public void downloadLocationsFromGeoapify(String searchQuery) {
         try {
-            GeoapifyService geoapifyService = new GeoapifyService();
-            List<Location> downloadedLocations = geoapifyService.getLocationsInCity();
+            SearchService searchService = new SearchService();
+            List<Location> downloadedLocations = searchService.searchLocationsFromQuery(searchQuery);
 
             for (Location location : downloadedLocations) {
                 saveLocation(location);

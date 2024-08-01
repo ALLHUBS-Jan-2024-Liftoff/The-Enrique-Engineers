@@ -3,10 +3,12 @@ package com.launchtrip.launchtrip.services;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.launchtrip.launchtrip.models.Location;
+import com.launchtrip.launchtrip.models.data.LocationRepository;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -15,6 +17,9 @@ import java.util.List;
 
 @Service
 public class SearchService {
+
+    @Autowired
+    LocationRepository locationRepository;
 
     // Todo: Separate out into three separate functions (searchLocationsFromQuery, fetchPlaceId, and fetchLocations) to utilize each separately and reduce overlap with GeoapifyService
 

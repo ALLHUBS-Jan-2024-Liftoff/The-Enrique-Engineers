@@ -13,7 +13,7 @@ const BASEAPIURL = "http://localhost:8080";
 // };
 
 export const searchLocations = (searchQuery) => {
-  return axios.get(`${BASEAPIURL}/api/locations/search`, { params: { searchQuery: searchQuery } })
+  return axios.get(`${BASEAPIURL}/api/locations/downloadLocationsFromGeoapify`, { params: { searchQuery: searchQuery } })
     .then(response => response.data)
     .catch(error => {
       throw error;

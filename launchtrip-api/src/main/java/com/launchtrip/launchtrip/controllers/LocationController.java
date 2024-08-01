@@ -1,7 +1,6 @@
 package com.launchtrip.launchtrip.controllers;
 
 import com.launchtrip.launchtrip.models.Location;
-import com.launchtrip.launchtrip.models.data.LocationRepository;
 import com.launchtrip.launchtrip.services.GeoapifyService;
 import com.launchtrip.launchtrip.services.LocationService;
 import com.launchtrip.launchtrip.services.SearchService;
@@ -50,8 +49,9 @@ public class LocationController {
     }
 
     @GetMapping("/downloadLocationsFromGeoapify")
-    public void downloadLocationsFromGeoapify() {
-        locationService.downloadLocationsFromGeoapify();
+    public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery) {
+        locationService.downloadLocationsFromGeoapify(searchQuery);
+        return locationService.getAllStoredLocations();
     }
 
     @PostMapping("/toggleVisited")
