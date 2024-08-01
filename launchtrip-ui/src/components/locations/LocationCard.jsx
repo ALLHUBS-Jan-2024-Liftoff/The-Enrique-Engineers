@@ -1,4 +1,5 @@
 import React from "react";
+import { markLocationAsVisited } from "../../services/locationsService";
 
 export const LocationCard = ({ location, deleteLocation }) => {
   return (
@@ -10,11 +11,10 @@ export const LocationCard = ({ location, deleteLocation }) => {
           <strong>State:</strong> {location.usState} <br />
           <strong>Country:</strong> {location.country} <br />
           <strong>Postcode:</strong> {location.postcode} <br />
-          <strong>Categories:</strong> {location.categories.join(", ")}
+          <strong>Categories:</strong> {location.categories.join(", ")} <br />
+          <button className="btn btn-danger" onClick={() => markLocationAsVisited(location.id)}>
+          {location.visited ? 'Visited' : 'Unseen'} </button>
         </p>
-        <button className="btn btn-danger" onClick={() => deleteLocation(location.id)}>
-          Delete
-        </button>
       </div>
     </div>
   );

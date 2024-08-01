@@ -3,6 +3,7 @@ package com.launchtrip.launchtrip.controllers;
 import com.launchtrip.launchtrip.models.Location;
 import com.launchtrip.launchtrip.models.data.LocationRepository;
 import com.launchtrip.launchtrip.services.GeoapifyService;
+import com.launchtrip.launchtrip.services.LocationService;
 import com.launchtrip.launchtrip.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ import java.util.List;
 public class LocationController {
     @Autowired
     private GeoapifyService geoapifyService;
+
+    @Autowired
+    private LocationService locationService;
 
     @Autowired
     private SearchService searchService;
@@ -40,18 +44,21 @@ public class LocationController {
         }
     }
 
+    @GetMapping("/getStoredLocations")
+    public List<Location> getStoredLocations() {
+        return locationService.getAllStoredLocations();
+    }
 
-//    @PostMapping("/new")
-//    public Location createLocation(@RequestParam String name, @RequestParam String address) {
-//        Location newLocation = new Location();
-//        newLocation.setName(name);
-//        newLocation.setAddress(address);
-//        return locationRepository.save(newLocation);
-//    }
+    @GetMapping("/downloadLocationsFromGeoapify")
+    public void downloadLocationsFromGeoapify() {
+        locationService.downloadLocationsFromGeoapify();
+    }
 
-//    @PostMapping("/delete")
-//    public void deleteLocation(@RequestParam Long locationId) {
-//        System.out.println("Removing location: " + locationId);
-//        locationRepository.deleteById(locationId);
-//    }
+    @PostMapping("/toggleVisited")
+    public void toggleAsVisited(@RequestParam Long locationId) {
+        System.out.println("Toggling Visited For: " + locationId);
+        Location location = locationService.getLocationViaId(locationId);
+        locationService.toggleLocationVisited(location);
+    }
+
 }
