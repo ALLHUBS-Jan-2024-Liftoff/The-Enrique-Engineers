@@ -15,6 +15,7 @@ public class Location {
     private Long id;
 
     private String name;
+    private String placeId;
     private String usState;
     private String country;
     private String postcode;
@@ -24,8 +25,9 @@ public class Location {
     public Location() {
     }
 
-    public Location(String name, String usState, String country, String postcode, List<String> categories) {
+    public Location(String name, String placeId, String usState, String country, String postcode, List<String> categories) {
         this.name = name;
+        this.placeId = placeId;
         this.usState = usState;
         this.country = country;
         this.postcode = postcode;

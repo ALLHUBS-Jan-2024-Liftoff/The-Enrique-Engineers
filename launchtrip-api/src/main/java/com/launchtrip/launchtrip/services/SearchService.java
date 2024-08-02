@@ -21,7 +21,7 @@ public class SearchService {
     @Autowired
     LocationRepository locationRepository;
 
-    // Todo: Separate out into three separate functions (searchLocationsFromQuery, fetchPlaceId, and fetchLocations) to utilize each separately and reduce overlap with GeoapifyService
+    // Todo: Separate out into three separate functions (searchLocationsFromQuery, fetchPlaceId, and fetchLocations) to utilize each separately and reduce overlap
 
     private static final String BASE_URL = "http://api.geoapify.com";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
@@ -118,7 +118,7 @@ public class SearchService {
                             categories.add(category.asText());
                         }
 
-                        Location location = new Location(name, usState, country, postcode, categories);
+                        Location location = new Location(name, placeId, usState, country, postcode, categories);
                         locations.add(location);
                     }
                 }

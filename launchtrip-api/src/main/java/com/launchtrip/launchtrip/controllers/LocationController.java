@@ -1,7 +1,6 @@
 package com.launchtrip.launchtrip.controllers;
 
 import com.launchtrip.launchtrip.models.Location;
-import com.launchtrip.launchtrip.services.GeoapifyService;
 import com.launchtrip.launchtrip.services.LocationService;
 import com.launchtrip.launchtrip.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +13,12 @@ import java.util.List;
 @RequestMapping("/api/locations")
 @CrossOrigin(origins = "http://localhost:5173")
 public class LocationController {
-    @Autowired
-    private GeoapifyService geoapifyService;
 
     @Autowired
     private LocationService locationService;
 
     @Autowired
     private SearchService searchService;
-
-    @GetMapping
-    public List<Location> getAllLocations() {
-        try {
-            return geoapifyService.getLocationsInCity();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     @GetMapping("/search")
     public List<Location> searchLocations(@RequestParam String searchQuery) {
