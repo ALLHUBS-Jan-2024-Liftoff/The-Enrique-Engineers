@@ -34,10 +34,6 @@ public class SearchService {
             searchQuery.replace(" ", "%20");
         }
 
-        // Save searchQuery as city name
-        String cityName = WordUtils.capitalizeFully(searchQuery);
-        System.out.println(cityName);
-
 
         OkHttpClient geocodingClient = new OkHttpClient().newBuilder()
                 .build();
@@ -114,6 +110,7 @@ public class SearchService {
                     for (JsonNode feature : features) {
                         JsonNode properties = feature.path("properties");
                         String name = properties.path("name").asText();
+                        String city = properties.path("city").asText();
                         String usState = properties.path("state").asText();
                         String country = properties.path("country").asText();
                         String postcode = properties.path("postcode").asText();
@@ -124,7 +121,7 @@ public class SearchService {
                             categories.add(category.asText());
                         }
 
-                        Location location = new Location(name, cityName, placeId, usState, country, postcode, categories);
+                        Location location = new Location(name, city, placeId, usState, country, postcode, categories);
                         locations.add(location);
                     }
                 }
