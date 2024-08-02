@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,11 @@ public class SearchService {
         if (searchQuery.contains(" ")) {
             searchQuery.replace(" ", "%20");
         }
+
+        // Save searchQuery as city name
+        String cityName = WordUtils.capitalizeFully(searchQuery);
+        System.out.println(cityName);
+
 
         OkHttpClient geocodingClient = new OkHttpClient().newBuilder()
                 .build();
@@ -118,7 +124,7 @@ public class SearchService {
                             categories.add(category.asText());
                         }
 
-                        Location location = new Location(name, placeId, usState, country, postcode, categories);
+                        Location location = new Location(name, cityName, placeId, usState, country, postcode, categories);
                         locations.add(location);
                     }
                 }

@@ -15,6 +15,7 @@ public class Location {
     private Long id;
 
     private String name;
+    private String cityName;
     private String placeId;
     private String usState;
     private String country;
@@ -25,8 +26,9 @@ public class Location {
     public Location() {
     }
 
-    public Location(String name, String placeId, String usState, String country, String postcode, List<String> categories) {
+    public Location(String name, String cityName, String placeId, String usState, String country, String postcode, List<String> categories) {
         this.name = name;
+        this.cityName = cityName;
         this.placeId = placeId;
         this.usState = usState;
         this.country = country;
@@ -45,6 +47,22 @@ public class Location {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public java.lang.String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(java.lang.String cityName) {
+        this.cityName = cityName;
+    }
+
+    public java.lang.String getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(java.lang.String placeId) {
+        this.placeId = placeId;
     }
 
     public String getUsState() {
