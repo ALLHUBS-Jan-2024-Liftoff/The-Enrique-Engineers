@@ -13,7 +13,7 @@ export const SearchBar = ({ onSearch }) => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search for a location"
+                placeholder="Search by city"
                 className="form-control"
             />
             <button onClick={handleSearch} className="btn btn-primary mt-2">

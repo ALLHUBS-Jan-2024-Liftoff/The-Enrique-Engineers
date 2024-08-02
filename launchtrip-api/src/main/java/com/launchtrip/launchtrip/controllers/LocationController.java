@@ -37,8 +37,8 @@ public class LocationController {
 
     @GetMapping("/downloadLocationsFromGeoapify")
     public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery) {
-        locationService.downloadLocationsFromGeoapify(searchQuery);
-        return locationService.getAllStoredLocations();
+        String cityName = locationService.downloadLocationsFromGeoapify(searchQuery);
+        return locationService.getLocationsByCityName(cityName);
     }
 
     @PostMapping("/toggleVisited")

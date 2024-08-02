@@ -14,21 +14,27 @@ public class LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
-    public void downloadLocationsFromGeoapify(String searchQuery) {
+    public String downloadLocationsFromGeoapify(String searchQuery) {
+        String cityName = "City Not Found";
         try {
             SearchService searchService = new SearchService();
             List<Location> downloadedLocations = searchService.searchLocationsFromQuery(searchQuery);
-
             for (Location location : downloadedLocations) {
                 saveLocation(location);
+                cityName = location.getCityName();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return cityName;
     }
 
     public List<Location> getAllStoredLocations() {
         return locationRepository.findAll();
+    }
+
+    public List<Location> getLocationsByCityName(String cityName) {
+        return locationRepository.findByCityName(cityName);
     }
 
     public Location getLocationViaId(Long locationId) {
