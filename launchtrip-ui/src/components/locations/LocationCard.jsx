@@ -8,7 +8,7 @@ export const LocationCard = ({ location, deleteLocation }) => {
         <h5 className="card-title">{location.name}</h5>
         <h6 className="card-subtitle mb-2 text-muted">ID: {location.id}</h6>
         <p className="card-text">
-          <strong>Location:</strong> {location.cityName + ", " + location.usState} <br />
+          <strong>Location:</strong> {location.city + ", " + location.usState} <br />
           <strong>Country:</strong> {location.country} <br />
           <strong>Postcode:</strong> {location.postcode} <br />
           <strong>Categories:</strong> {location.categories.join(", ")} <br />

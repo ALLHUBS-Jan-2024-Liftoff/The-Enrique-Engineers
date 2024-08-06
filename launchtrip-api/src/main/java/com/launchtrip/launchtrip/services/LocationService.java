@@ -15,26 +15,27 @@ public class LocationService {
     private LocationRepository locationRepository;
 
     public String downloadLocationsFromGeoapify(String searchQuery) {
-        String cityName = "City Not Found";
+        // cityGroup String returns the City so that we can return the right Locations from the LocationRepository. There may be a more elegant way to do this - I haven't figured out how yet!
+        String cityGroup = "City Not Found";
         try {
             SearchService searchService = new SearchService();
             List<Location> downloadedLocations = searchService.searchLocationsFromQuery(searchQuery);
             for (Location location : downloadedLocations) {
                 saveLocation(location);
-                cityName = location.getCityName();
+                cityGroup = location.getCity();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return cityName;
+        return cityGroup;
     }
 
     public List<Location> getAllStoredLocations() {
         return locationRepository.findAll();
     }
 
-    public List<Location> getLocationsByCityName(String cityName) {
-        return locationRepository.findByCityName(cityName);
+    public List<Location> getLocationsByCity(String city) {
+        return locationRepository.findByCity(city);
     }
 
     public Location getLocationViaId(Long locationId) {
