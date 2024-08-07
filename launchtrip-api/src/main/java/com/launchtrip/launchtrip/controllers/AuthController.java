@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.launchtrip.launchtrip.models.WebConfig;
 @RestController
-@RequestMapping("/api/LoginRegistration")
-// allow the credentials for the CORS model //
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
+
+    private WebConfig webConfig;
 
 
 
