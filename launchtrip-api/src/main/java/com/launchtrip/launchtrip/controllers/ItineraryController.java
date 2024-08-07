@@ -46,4 +46,5 @@ public class ItineraryController {
         itineraryToEdit.addLocation(locationToAdd);;
         itineraryRepository.save(itineraryToEdit);
     }
+    
 }
