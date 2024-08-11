@@ -65,6 +65,44 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px; /* Adjust the gap between cards */
+    padding: 10px;
+  }
+  
+  .card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .btn-danger {
+    margin-top: 10px;
+  }
+
+  .btn-primary {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .card-container {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+  }  
+  
 }
 
 
