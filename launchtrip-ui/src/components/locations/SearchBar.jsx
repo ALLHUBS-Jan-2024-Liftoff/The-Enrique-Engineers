@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 
-const SearchBar = ({ onSearch }) => {
+export const SearchBar = ({ onSearch }) => {
     const [searchQuery, setQuery] = useState('');
     const [categories, setCategories] = useState({
         restaurants: false,
@@ -18,7 +18,9 @@ const SearchBar = ({ onSearch }) => {
     };
 
     const handleSearch = () => {
+        // Convert categories object to list of selected category strings
         const selectedCategories = Object.keys(categories).filter(key => categories[key]);
+        // Pass categories with searchQuery to search method 
         onSearch(searchQuery, selectedCategories);
     };
 

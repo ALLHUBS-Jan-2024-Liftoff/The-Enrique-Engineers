@@ -17,8 +17,8 @@ export const LocationsPage = () => {
       });
   };
 
-  const handleSearch = (searchQuery) => {
-    searchLocations(searchQuery)
+  const handleSearch = (searchQuery, selectedCategories) => {
+    searchLocations(searchQuery, selectedCategories)
       .then(setLocations)
       .catch((error) => {
         console.error("There was an error searching the locations!", error);
