@@ -7,7 +7,7 @@ export const ItineraryTable = ({ itineraries, deleteItinerary }) => {
       <thead>
         <tr>
           <th scope="col">Id #</th>
-          <th scope="col">Place Name</th>
+          <th scope="col">Itinerary Name</th>
           <th scope="col">Visited</th>
         </tr>
       </thead>

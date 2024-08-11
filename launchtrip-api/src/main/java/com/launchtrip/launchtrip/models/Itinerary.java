@@ -33,8 +33,12 @@ public class Itinerary {
         return locations;
     }
 
-    public void addLocation(Location newLocation) {
-        locations.add(newLocation);
+    public void addLocation(Location location) {
+        locations.add(location);
+    }
+
+    public void removeLocation(Location location) {
+        locations.remove(location);
     }
 
     public Long getId() {
