@@ -75,7 +75,7 @@ public class SearchService {
         placesUrl += "?apiKey=" + API_KEY;
 
         // Limit
-        placesUrl += "&limit=10";
+        placesUrl += "&limit=20";
 
         // Place Types
         // NOTE: This is searching all possible categories to put into the database. The selected search categories are filtered in the ---- call.
