@@ -29,7 +29,8 @@ public class LocationController {
     public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery, @RequestParam String categories) {
         String cityGroup = locationService.downloadLocationsFromGeoapify(searchQuery);
         List<Location> allCityLocations = locationService.getLocationsByCity(cityGroup);
-        return allCityLocations;
+        List<Location> filteredCityLocations = locationService.filterLocationsByType(allCityLocations, categories);
+        return filteredCityLocations;
     }
 
     @PostMapping("/toggleVisited")

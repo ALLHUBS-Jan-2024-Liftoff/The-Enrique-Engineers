@@ -6,6 +6,7 @@ import com.launchtrip.launchtrip.models.Location;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,9 +39,22 @@ public class LocationService {
         return locationRepository.findByCity(city);
     }
 
-//    public List<Location> filterLocationsByType(List<Location> allCityLocations, String categories) {
-//        return locationRepository.findByCategories(categories);
-//    }
+    public List<Location> filterLocationsByType(List<Location> allCityLocations, String selectedCategories) {
+
+        List<Location> filteredLocations = new ArrayList<>();
+
+        for (Location location : allCityLocations) {
+            for (String category : location.getCategories()) {
+                System.out.println(category);
+                if (selectedCategories.contains(category)) {
+                    filteredLocations.add(location);
+                    break;
+                }
+            }
+        }
+        System.out.println(filteredLocations);
+        return filteredLocations;
+    };
 
     public Location getLocationViaId(Long locationId) {
         return locationRepository.getReferenceById(locationId);
