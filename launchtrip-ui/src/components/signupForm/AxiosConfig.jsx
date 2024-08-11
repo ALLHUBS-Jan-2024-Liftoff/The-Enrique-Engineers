@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -37,3 +38,17 @@ const Register = () => {
 };
 
 export default Register;
+=======
+import axios from 'axios';
+
+const instance = axios.create({
+  baseURL: 'http://localhost:8080/api', // Your backend base URL
+  timeout: 1000,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true // Include credentials if necessary
+});
+
+export default instance;
+>>>>>>> 5bb4238d9c46525df692709b5d2701275759eb1e

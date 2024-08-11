@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import instance from './AxiosConfig'; // Ensure the path is correct
 import './signupForm.css';
+=======
+import instance from './AxiosConfig.jsx'; // Import Axios instance
+import './signupForm.css'; // Assuming you have some CSS styling
+>>>>>>> 5bb4238d9c46525df692709b5d2701275759eb1e
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
