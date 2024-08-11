@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { fetchLocations } from "../../services/locationsService";
+import { searchLocations} from "../../services/locationsService";
 import { LocationsTable } from "./LocationsTable";
+import { SearchBar } from "./SearchBar";
 //import { NewLocationForm } from "./NewLocationForm";
 
 export const LocationsPage = () => {
   // const [showAddForm, setShowAddForm] = useState(false);
   const [locations, setLocations] = useState([]);
 
-  useEffect(() => {
-    // Fetch all locations when the component mounts
-    fetchLocations()
-      .then(setLocations)
-      .catch((error) => {
-        console.error("There was an error fetching the locations!", error);
-      });
-  }, [locations]);
-
-//   const handleCreateLocation = (name, address) => {
-//     createLocation(name, address)
-//       .then((newLocation) => {
-//         setTodos([...locations, newLocation]);
-//       })
-//       .catch((error) => {
-//         console.error("There was an error creating the location!", error);
-//       });
-//   };
+  // useEffect(() => {
+  //   // Fetch all locations when the component mounts
+  //   fetchLocations()
+  //     .then(setLocations)
+  //     .catch((error) => {
+  //       console.error("There was an error fetching the locations!", error);
+  //     });
+  // }, [locations]);
 
   const handleDeleteLocation = (locationId) => {
     deleteLocation(locationId)
@@ -36,29 +27,21 @@ export const LocationsPage = () => {
       });
   };
 
-//   return (
-//     <div className="mt-5 container">
-//       <div className="card">
-//         <div className="card-header">Your Locations</div>
-//         <div className="card-body">
-//           <LocationsTable locations={locations} deleteLocation={handleDeleteLocation} />
-//           <button
-//             onClick={() => setShowAddForm(!showAddForm)}
-//             className="btn btn-primary"
-//           >
-//             {showAddForm ? "Close Form" : "New Location"}
-//           </button>
-//           {showAddForm && <NewLocationForm createLocation={handleCreateLocation} />}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
+  const handleSearch = (searchQuery) => {
+    searchLocations(searchQuery)
+      .then(setLocations)
+      .catch((error) => {
+        console.error("There was an error searching the locations!", error);
+      });
+  };
 
 return (
   <div className="mt-5 container">
     <div className="card">
       <div className="card-header">Your Locations</div>
+      <div className="card-body">
+        <SearchBar onSearch={handleSearch} />
+      </div>
       <div className="card-body">
         <LocationsTable locations={locations} deleteLocation={handleDeleteLocation} />
       </div>
