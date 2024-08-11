@@ -69,8 +69,6 @@ public class SearchService {
             // Append v2/places
             String placesUrl = BASE_URL + "/v2/places";
 
-            // Append Parameters
-
             // API Key
             placesUrl += "?apiKey=" + API_KEY;
 
