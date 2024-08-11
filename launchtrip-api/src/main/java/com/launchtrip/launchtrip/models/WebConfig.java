@@ -1,19 +1,23 @@
 package com.launchtrip.launchtrip.models;
 
-import org.springframework.context.annotation.Bean;
+import com.launchtrip.launchtrip.models.Interceptors;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    @Autowired
+    private Interceptors Interceptors;
+
     @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173") // Adjust this to your React app's URL
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true);
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(Interceptors)
+                .addPathPatterns("/api/Auth/**")  // Apply the interceptor to the specified path
+                .excludePathPatterns("/api/Auth/login", "/api/Auth/register"); // Explicitly exclude paths if needed
     }
 }
+
+

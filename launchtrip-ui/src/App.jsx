@@ -4,7 +4,6 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { ItinerariesPage } from './components/Itineraries/ItinerariesPage'
 import { LocationsPage } from './components/Locations/LocationsPage'
-
 function App() {
   const [count, setCount] = useState(0)
 
@@ -12,9 +11,10 @@ function App() {
 
   return (
     <>
-      <ItinerariesPage></ItinerariesPage>
+    <ItinerariesPage></ItinerariesPage>
       <LocationsPage></LocationsPage>
-    </>
+      </>
+    
   )
 }
 
