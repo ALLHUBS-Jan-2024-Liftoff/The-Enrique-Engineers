@@ -19,7 +19,9 @@ export const SearchBar = ({ onSearch }) => {
 
     const handleSearch = () => {
         // Convert categories object to list of selected category strings
-        const selectedCategories = Object.keys(categories).filter(key => categories[key]);
+        const extractedCategories = Object.keys(categories).filter(key => categories[key]);
+        const selectedCategories = extractedCategories.length > 0 ? extractedCategories.join(',') : '';
+        console.log(selectedCategories);
         // Pass categories with searchQuery to search method 
         onSearch(searchQuery, selectedCategories);
     };

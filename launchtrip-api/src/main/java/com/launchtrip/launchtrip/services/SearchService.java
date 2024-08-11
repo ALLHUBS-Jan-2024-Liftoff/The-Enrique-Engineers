@@ -27,7 +27,7 @@ public class SearchService {
     private static final String BASE_URL = "http://api.geoapify.com";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
 
-    public List<Location> searchLocationsFromQuery(String searchQuery, List<String> selectedCategories) throws IOException {
+    public List<Location> searchLocationsFromQuery(String searchQuery) throws IOException {
         // Call Geocoding API to convert search query into PlaceId
 
         if (searchQuery.contains(" ")) {
@@ -64,28 +64,25 @@ public class SearchService {
                 }
             }
 
-            // Start Building URL
+        // Start Building URL
 
-            // Append v2/places
-            String placesUrl = BASE_URL + "/v2/places";
+        // Append v2/places
+        String placesUrl = BASE_URL + "/v2/places";
 
-            // API Key
-            placesUrl += "?apiKey=" + API_KEY;
+        // Append Parameters
 
-            // Limit
-            placesUrl += "&limit=20";
+        // API Key
+        placesUrl += "?apiKey=" + API_KEY;
 
-            // Place Types
-            // ToDo: create a method for taking in a place type and converting it to a geoapify category
-            if (selectedCategories != null && !selectedCategories.isEmpty()) {
-                String categoriesParam = String.join(",", selectedCategories);
-                System.out.println(categoriesParam);
-                //placesUrl += "&categories=" + categoriesParam;
-            }
-            placesUrl += "&categories=entertainment,natural,catering.restaurant,catering.cafe,catering.bar,catering.taproom";
+        // Limit
+        placesUrl += "&limit=10";
 
-            // Filter Place
-            placesUrl += "&filter=place:" + placeId;
+        // Place Types
+        // NOTE: This is searching all possible categories to put into the database. The selected search categories are filtered in the ---- call.
+        placesUrl += "&categories=entertainment,natural,accommodation,tourism,catering.restaurant,catering.cafe,catering.bar,catering.taproom";
+
+        // Filter Place
+        placesUrl += "&filter=place:" + placeId;
 
             // Make the HTTP Call
             OkHttpClient placesClient = new OkHttpClient().newBuilder()

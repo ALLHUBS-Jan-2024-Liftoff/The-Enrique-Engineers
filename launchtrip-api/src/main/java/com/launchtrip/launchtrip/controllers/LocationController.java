@@ -26,9 +26,10 @@ public class LocationController {
     }
 
     @GetMapping("/downloadLocationsFromGeoapify")
-    public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery, @RequestParam List<String> categories) {
-        String cityGroup = locationService.downloadLocationsFromGeoapify(searchQuery, categories);
-        return locationService.getLocationsByCity(cityGroup);
+    public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery, @RequestParam String categories) {
+        String cityGroup = locationService.downloadLocationsFromGeoapify(searchQuery);
+        List<Location> allCityLocations = locationService.getLocationsByCity(cityGroup);
+        return allCityLocations;
     }
 
     @PostMapping("/toggleVisited")
