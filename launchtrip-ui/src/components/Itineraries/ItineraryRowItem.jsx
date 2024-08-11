@@ -19,7 +19,7 @@ export const ItineraryRowItem = ({ itinerary, deleteItinerary }) => {
         </button>
       </td>
       <td>
-        <button className="btn btn-danger"><Link to={"/ItineraryEditPage/" + itinerary.id}>Edit</Link></button>
+        <button className="btn btn-primary"><Link to={"/ItineraryEditPage/" + itinerary.id} target="_blank">Edit</Link></button>
       </td>
     </tr>
   );
