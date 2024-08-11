@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import Axios
-import './signupForm.css'; // Assuming you have some CSS styling
-import instance from './AxiosConfig.jsx'
-
-
+import instance from './AxiosConfig'; // Ensure the path is correct
+import './signupForm.css';
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -32,6 +29,10 @@ const LoginForm = () => {
         console.log('Login successful:', response.data);
         // Handle successful login (e.g., redirect to dashboard)
       } else {
+        if (userData.password !== userData.confirmPassword) {
+          console.error('Passwords do not match.');
+          return;
+        }
         const response = await instance.post('/register', {
           username: userData.username,
           password: userData.password
@@ -39,9 +40,8 @@ const LoginForm = () => {
         console.log('Registration successful:', response.data);
         // Handle successful registration (e.g., show success message)
       }
-      // Optionally, perform additional actions after successful authentication or registration
     } catch (error) {
-      console.error('Authentication error:', error);
+      // console.error('Authentication error:', error);
       // Handle authentication error (e.g., show error message to user)
     }
   };
