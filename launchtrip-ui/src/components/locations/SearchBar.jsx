@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 export const SearchBar = ({ onSearch }) => {
     const [searchQuery, setQuery] = useState('');
     const [categories, setCategories] = useState({
-        restaurants: false,
+        catering: false,
         natural: false,
         entertainment: false,
         accommodation: false,
@@ -38,8 +38,8 @@ export const SearchBar = ({ onSearch }) => {
                 <label>
                     <input
                         type="checkbox"
-                        name="restaurants"
-                        checked={categories.restaurants}
+                        name="catering"
+                        checked={categories.catering}
                         onChange={handleCheckboxChange}
                     />
                     Restaurants
