@@ -64,25 +64,25 @@ public class SearchService {
                 }
             }
 
-            // Start Building URL
+        // Start Building URL
 
-            // Append v2/places
-            String placesUrl = BASE_URL + "/v2/places";
+        // Append v2/places
+        String placesUrl = BASE_URL + "/v2/places";
 
-            // Append Parameters
+        // Append Parameters
 
-            // API Key
-            placesUrl += "?apiKey=" + API_KEY;
+        // API Key
+        placesUrl += "?apiKey=" + API_KEY;
 
-            // Limit
-            placesUrl += "&limit=10";
+        // Limit
+        placesUrl += "&limit=20";
 
-            // Place Types
-            // ToDo: create a method for taking in a place type and converting it to a geoapify category
-            placesUrl += "&categories=entertainment,natural,catering.restaurant,catering.cafe,catering.bar,catering.taproom";
+        // Place Types
+        // NOTE: This is searching all possible categories to put into the database. The selected search categories are filtered in the ---- call.
+        placesUrl += "&categories=entertainment,natural,accommodation,tourism,catering.restaurant,catering.cafe,catering.bar,catering.taproom";
 
-            // Filter Place
-            placesUrl += "&filter=place:" + placeId;
+        // Filter Place
+        placesUrl += "&filter=place:" + placeId;
 
             // Make the HTTP Call
             OkHttpClient placesClient = new OkHttpClient().newBuilder()

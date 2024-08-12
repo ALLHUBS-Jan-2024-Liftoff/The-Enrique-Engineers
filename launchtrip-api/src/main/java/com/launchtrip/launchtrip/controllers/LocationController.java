@@ -20,25 +20,17 @@ public class LocationController {
     @Autowired
     private SearchService searchService;
 
-    @GetMapping("/search")
-    public List<Location> searchLocations(@RequestParam String searchQuery) {
-        try {
-            return searchService.searchLocationsFromQuery(searchQuery);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     @GetMapping("/getStoredLocations")
     public List<Location> getStoredLocations() {
         return locationService.getAllStoredLocations();
     }
 
     @GetMapping("/downloadLocationsFromGeoapify")
-    public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery) {
+    public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery, @RequestParam String categories) {
         String cityGroup = locationService.downloadLocationsFromGeoapify(searchQuery);
-        return locationService.getLocationsByCity(cityGroup);
+        List<Location> allCityLocations = locationService.getLocationsByCity(cityGroup);
+        List<Location> filteredCityLocations = locationService.filterLocationsByType(allCityLocations, categories);
+        return filteredCityLocations;
     }
 
     @PostMapping("/toggleVisited")
