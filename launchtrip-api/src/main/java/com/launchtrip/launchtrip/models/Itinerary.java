@@ -15,7 +15,7 @@ public class Itinerary {
     private Boolean visited;
 
     // Todo: Add review property to Itinerary class
-
+    private Review review;
 
     @OneToMany
     private List<Location> locations = new ArrayList<>();
