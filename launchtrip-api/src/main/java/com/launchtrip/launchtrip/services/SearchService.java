@@ -132,7 +132,7 @@ public class SearchService {
                         }
                         else {
                             //Attribute 'fee' and 'no_fee.no' doesn't exist.
-                            //Just assume that its 
+                            //Just assume that its
                             location.setPaid(true);
                         }
 
