@@ -17,9 +17,10 @@ function App() {
   const [count, setCount] = useState(0)
   return (
     <>
-      <ItinerariesPage></ItinerariesPage>
+    <ItinerariesPage></ItinerariesPage>
       <LocationsPage></LocationsPage>
-    </>
+      </>
+    
   )
 }
 

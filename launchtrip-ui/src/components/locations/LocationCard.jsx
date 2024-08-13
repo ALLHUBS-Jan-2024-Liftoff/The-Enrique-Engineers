@@ -17,9 +17,9 @@ export const LocationCard = ({ location }) => {
           <strong>Country:</strong> {location.country} <br />
           <strong>Postcode:</strong> {location.postcode} <br />
           <strong>Categories:</strong> {location.categories.join(", ")} <br />
-          {/* Added a button so a location can be added to the itinerary  */}
-          {/* <button className="btn btn-primary" onClick={() => addLocationToItinerary(itineraryId, location.id)}>Add</button> */}
-          
+          {/* Show a field for paid/free */}
+          <strong>Paid:</strong> {location.paid ? "Paid Attraction" : "Free Attraction"} <br />
+
           <button className="btn btn-danger" onClick={() => markLocationAsVisited(location.id)}>
           {location.visited ? 'Visited' : 'Unseen'} </button>
         </p>
