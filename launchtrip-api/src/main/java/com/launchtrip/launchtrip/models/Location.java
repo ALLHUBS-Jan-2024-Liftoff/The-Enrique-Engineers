@@ -22,6 +22,7 @@ public class Location {
     private String postcode;
     private List<String> categories;
     private boolean visited;
+    private boolean paid;
 
     public Location() {
     }
@@ -35,6 +36,7 @@ public class Location {
         this.postcode = postcode;
         this.categories = categories;
         this.visited = false;
+        this.paid = true; //Default value of true unless GeoAPIFy shows that it's free
     }
 
     public Long getId() {
@@ -103,6 +105,14 @@ public class Location {
 
     public void setVisited(boolean visited) {
         this.visited = visited;
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 }
 

@@ -122,6 +122,20 @@ public class SearchService {
                         }
 
                         Location location = new Location(name, city, placeId, usState, country, postcode, categories);
+                        /*Added by Brett. Check to see if the location has a 'no_fee.no' attribute or a 'fee' attribute*/
+                        if (categories.contains("fee"))
+                        {
+                            location.setPaid(true);
+                        }
+                        else if (categories.contains("no_fee.no")) {
+                            location.setPaid(false);
+                        }
+                        else {
+                            //Attribute 'fee' and 'no_fee.no' doesn't exist.
+                            //Just assume that its 
+                            location.setPaid(true);
+                        }
+
                         locations.add(location);
                     }
                 }
