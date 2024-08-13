@@ -37,7 +37,7 @@ export const ItinerariesPage = () => {
   const handleAddItinerary = (name, visited) => {
     addItinerary(name, visited)
       .then((newItinerary) => {
-        setTodos([...itineraries, newItinerary]);
+        setLocations([...itineraries, newItinerary]);
         //needToRefreshItineraries = true;
       })
       .catch((error) => {
