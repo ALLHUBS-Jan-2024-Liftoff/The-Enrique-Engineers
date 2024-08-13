@@ -14,12 +14,12 @@ export const ItinerariesPage = () => {
       .catch((error) => {
         console.error("There was an error fetching the itineraries!", error);
       });
-  }, [itineraries]);
+  }, []);
 
   const handleAddItinerary = (name, visited) => {
     addItinerary(name, visited)
       .then((newItinerary) => {
-        setTodos([...itineraries, newItinerary]);
+        setItineraries([...itineraries, newItinerary]);
       })
       .catch((error) => {
         console.error("There was an error creating the itinerary!", error);

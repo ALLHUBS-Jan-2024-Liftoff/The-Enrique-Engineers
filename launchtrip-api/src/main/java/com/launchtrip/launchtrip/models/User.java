@@ -5,16 +5,22 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class User {
+public class User extends AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotNull
     private String username;
+    @NotNull
+    private String pwHash;
+
     private String password;
     private String firstName;
     private String lastName;
@@ -26,16 +32,29 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String firstName, String lastName) {
-        this.username = username; // add validation annotations? @Size (min= , max= ) @NotNull
-        this.password = password; // add validation annotations? @Size (min= , max= ) @NotNull
-        this.firstName = firstName; // add validation annotations? @NotNull
-        this.lastName = lastName; // add validation annotations? @NotNull
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+    public User(String username, String password) {
+        this.username = username;
+        this.pwHash = encoder.encode(password);
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
     }
 
 
-    public Long getId() {
-        return id;
+    public User(String username, String password, String firstName, String lastName, int points) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.points = points;
+    }
+
+
+    public int getId() {
+        return Math.toIntExact(id);
     }
 
     public void setId(Long id) {
@@ -72,6 +91,14 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     public List<Itinerary> getItineraries() {
