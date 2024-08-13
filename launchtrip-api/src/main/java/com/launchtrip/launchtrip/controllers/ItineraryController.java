@@ -22,6 +22,7 @@ public class ItineraryController {
 
     @GetMapping()
     public List<Itinerary> getAllItineraries(){
+        System.out.println("getAllItineraries is being called");
         return itineraryRepository.findAll();
     }
 

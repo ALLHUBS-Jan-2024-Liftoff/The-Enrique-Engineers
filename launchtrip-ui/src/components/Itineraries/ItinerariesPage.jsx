@@ -1,11 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { fetchItineraries, addItinerary, deleteItinerary } from "../../services/itineraryService";
+import {
+  fetchItineraries,
+  addItinerary,
+  deleteItinerary,
+} from "../../services/itineraryService";
 import { ItineraryTable } from "./ItineraryTable";
 import { NewItineraryForm } from "./NewItineraryForm";
 
 export const ItinerariesPage = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [itineraries, setItineraries] = useState([]);
+
+  /*
+  let needToRefreshItineraries = true;
+
+  if (needToRefreshItineraries == true) {
+    // Fetch all todos when the component mounts
+    fetchItineraries()
+      .then(setItineraries)
+      .catch((error) => {
+        console.error("There was an error fetching the itineraries!", error);
+      });
+    needToRefreshItineraries = false;
+  }
+  */
 
   useEffect(() => {
     // Fetch all todos when the component mounts
@@ -14,12 +32,13 @@ export const ItinerariesPage = () => {
       .catch((error) => {
         console.error("There was an error fetching the itineraries!", error);
       });
-  }, [itineraries]);
+  }, []);
 
   const handleAddItinerary = (name, visited) => {
     addItinerary(name, visited)
       .then((newItinerary) => {
         setTodos([...itineraries, newItinerary]);
+        //needToRefreshItineraries = true;
       })
       .catch((error) => {
         console.error("There was an error creating the itinerary!", error);
@@ -29,7 +48,10 @@ export const ItinerariesPage = () => {
   const handleDeleteItinerary = (itineraryId) => {
     deleteItinerary(itineraryId)
       .then(() => {
-        setItineraries(itineraries.filter((itinerary) => itinerary.id !== itineraryId));
+        setItineraries(
+          itineraries.filter((itinerary) => itinerary.id !== itineraryId)
+        );
+        //needToRefreshItineraries = true;
       })
       .catch((error) => {
         console.error("There was an error deleting the itinerary!", error);
@@ -41,14 +63,19 @@ export const ItinerariesPage = () => {
       <div className="card">
         <div className="card-header">Your Itineraries</div>
         <div className="card-body">
-          <ItineraryTable itineraries={itineraries} deleteItinerary={handleDeleteItinerary} />
+          <ItineraryTable
+            itineraries={itineraries}
+            deleteItinerary={handleDeleteItinerary}
+          />
           <button
             onClick={() => setShowAddForm(!showAddForm)}
             className="btn btn-primary"
           >
             {showAddForm ? "Close Form" : "New Itinerary"}
           </button>
-          {showAddForm && <NewItineraryForm addItinerary={handleAddItinerary} />}
+          {showAddForm && (
+            <NewItineraryForm addItinerary={handleAddItinerary} />
+          )}
         </div>
       </div>
     </div>
