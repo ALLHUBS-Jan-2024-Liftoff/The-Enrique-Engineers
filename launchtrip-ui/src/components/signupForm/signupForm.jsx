@@ -22,7 +22,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       if (isLogin) {
-        const response = await instance.post('/login', {
+        const response = await instance.post('/Auth/login', {
           username: userData.username,
           password: userData.password
         });
@@ -33,7 +33,7 @@ const LoginForm = () => {
           console.error('Passwords do not match.');
           return;
         }
-        const response = await instance.post('/register', {
+        const response = await instance.post('/Auth/register', {
           username: userData.username,
           password: userData.password
         });
