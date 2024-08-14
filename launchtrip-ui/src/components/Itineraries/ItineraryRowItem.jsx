@@ -4,6 +4,7 @@ import { ItineraryEditPage } from "./ItineraryEditPage";
 
 //New code to support React Router
 import { Route, Routes, Link } from "react-router-dom"
+import { markItineraryAsVisited } from "../../services/itineraryService";
 
 
 
@@ -12,7 +13,10 @@ export const ItineraryRowItem = ({ itinerary, deleteItinerary }) => {
     <tr key={itinerary.id}>
       <th scope="row">{itinerary.id}</th>
       <td>{itinerary.name}</td>
-      <td>{itinerary.visited? "Visited" : "Unseen"}</td>
+      <td>
+        <button className="btn btn-danger" onClick={() => markItineraryAsVisited(itinerary.id)}>
+        {itinerary.visited ? 'Visited' : 'Unseen'} </button>
+      </td>
       <td>
         <button className="btn btn-danger" onClick={() => deleteItinerary(itinerary.id)}>
           Delete

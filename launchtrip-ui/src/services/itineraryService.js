@@ -99,4 +99,16 @@ export const getItineraryName = async (itineraryId) => {
     console.log("There was an error when retrieving details from itinerary: ", itineraryId);
   }
   return itineraryName;
-};
+}
+
+export const markItineraryAsVisited = async (itineraryId) => {
+  try {
+    await axios.post(`${BASEAPIURL}/api/itineraries/toggleItineraryVisited`, null, {
+      params: { itineraryId },
+    });
+    console.log("No error when toggling visited");
+  } catch (error) {
+    console.error("There was an error when toggling visited!", error);
+    throw error;
+  };
+}
