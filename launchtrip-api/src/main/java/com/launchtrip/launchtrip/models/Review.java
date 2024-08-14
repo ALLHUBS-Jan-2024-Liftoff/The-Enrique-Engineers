@@ -2,6 +2,7 @@ package com.launchtrip.launchtrip.models;
 
 import jakarta.persistence.*;
 
+@Entity
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,7 +11,7 @@ public class Review {
     private int starRating;
     private String reviewText;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
