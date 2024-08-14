@@ -11,6 +11,7 @@ public class Review {
     private String reviewText;
 
     @ManyToMany
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne

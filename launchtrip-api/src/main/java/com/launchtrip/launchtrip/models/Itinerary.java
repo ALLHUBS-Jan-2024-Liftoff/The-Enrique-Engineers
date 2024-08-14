@@ -14,8 +14,8 @@ public class Itinerary {
     private String name;
     private Boolean visited;
 
-    // Todo: Add review property to Itinerary class
-    private Review review;
+    @OneToMany(mappedBy = "itinerary", cascade = CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
 
     @OneToMany
     private List<Location> locations = new ArrayList<>();
@@ -66,5 +66,18 @@ public class Itinerary {
 
     public void setVisited(Boolean visited) {
         this.visited = visited;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview (Review review) {
+        if (this.visited) {
+            this.reviews.add(review);
+            review.setItinerary(this);
+        } else {
+            throw new IllegalStateException("Cannot add review unless the itinerary has been visited");
+        }
     }
 }
