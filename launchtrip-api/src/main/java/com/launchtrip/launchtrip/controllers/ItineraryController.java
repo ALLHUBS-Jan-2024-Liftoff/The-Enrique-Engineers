@@ -2,9 +2,12 @@ package com.launchtrip.launchtrip.controllers;
 
 import com.launchtrip.launchtrip.models.Itinerary;
 import com.launchtrip.launchtrip.models.Location;
+import com.launchtrip.launchtrip.models.Review;
 import com.launchtrip.launchtrip.models.data.ItineraryRepository;
 import com.launchtrip.launchtrip.models.data.LocationRepository;
+import com.launchtrip.launchtrip.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +22,9 @@ public class ItineraryController {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping()
     public List<Itinerary> getAllItineraries(){
@@ -68,4 +74,11 @@ public class ItineraryController {
     public void deleteItinerary(@RequestParam Long itineraryId) {
         itineraryRepository.deleteById(itineraryId);
     }
+
+    @PostMapping("/{itineraryId}/reviews")
+    public ResponseEntity<?> addReview(@PathVariable Long itineraryId, @RequestBody Review review) {
+        reviewService.addReviewToItinerary(itineraryId, review);
+        return ResponseEntity.ok("Review added successfully!");
+    }
+
 }
