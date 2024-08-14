@@ -18,12 +18,23 @@ export const ItineraryRowItem = ({ itinerary, deleteItinerary }) => {
         {itinerary.visited ? 'Visited' : 'Unseen'} </button>
       </td>
       <td>
-        <button className="btn btn-danger" onClick={() => deleteItinerary(itinerary.id)}>
-          Delete
+        <button className="btn btn-primary"><Link to={"/ItineraryEditPage/" + itinerary.id} target="_blank">Edit</Link></button>
+      </td>
+      <td>
+        <button className="btn btn-primary" disabled={!itinerary.visited}>
+          {itinerary.visited ? (
+          <Link to={"/ItineraryReviewPage/" + itinerary.id} target="_blank">
+          Write a Review
+          </Link>
+          ) : (
+            "Write a Review"
+          )}
         </button>
       </td>
       <td>
-        <button className="btn btn-primary"><Link to={"/ItineraryEditPage/" + itinerary.id} target="_blank">Edit</Link></button>
+        <button className="btn btn-danger" onClick={() => deleteItinerary(itinerary.id)}>
+          Delete
+        </button>
       </td>
     </tr>
   );

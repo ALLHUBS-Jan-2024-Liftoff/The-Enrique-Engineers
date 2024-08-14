@@ -9,6 +9,9 @@ export const ItineraryTable = ({ itineraries, deleteItinerary }) => {
           <th scope="col">Id #</th>
           <th scope="col">Itinerary Name</th>
           <th scope="col">Visited</th>
+          <th scope="col">Edit Itinerary</th>
+          <th scope="col">Review Itinerary</th>
+          <th scope="col">Delete Itinerary</th>
         </tr>
       </thead>
       <tbody>
