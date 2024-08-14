@@ -5,6 +5,7 @@ import com.launchtrip.launchtrip.models.Location;
 import com.launchtrip.launchtrip.models.Review;
 import com.launchtrip.launchtrip.models.data.ItineraryRepository;
 import com.launchtrip.launchtrip.models.data.LocationRepository;
+import com.launchtrip.launchtrip.services.ItineraryService;
 import com.launchtrip.launchtrip.services.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ public class ItineraryController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private ItineraryService itineraryService;
 
     @GetMapping()
     public List<Itinerary> getAllItineraries(){
@@ -79,6 +83,13 @@ public class ItineraryController {
     public ResponseEntity<?> addReview(@PathVariable Long itineraryId, @RequestBody Review review) {
         reviewService.addReviewToItinerary(itineraryId, review);
         return ResponseEntity.ok("Review added successfully!");
+    }
+
+    @PostMapping("/toggleItineraryVisited")
+    public void toggleItineraryVisited(@RequestParam Long itineraryId) {
+        System.out.println("Toggling Visited For: " + itineraryId);
+        Itinerary itinerary = itineraryService.getItineraryViaId(itineraryId);
+        itineraryService.toggleItineraryVisited(itinerary);
     }
 
 }

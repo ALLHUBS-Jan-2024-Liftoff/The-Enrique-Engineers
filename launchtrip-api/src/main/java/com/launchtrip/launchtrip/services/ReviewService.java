@@ -16,7 +16,7 @@ public class ReviewService {
         Itinerary itinerary = itineraryRepository.findById(itineraryId).orElseThrow(() -> new IllegalArgumentException("Invalid itinerary ID"));
 
         // check if itinerary has been visited
-        if (itinerary.getVisited()) {
+        if (itinerary.isVisited()) {
             itinerary.addReview(review);
             itineraryRepository.save(itinerary);
         } else {

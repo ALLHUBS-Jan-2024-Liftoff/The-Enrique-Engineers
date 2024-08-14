@@ -60,7 +60,7 @@ public class Itinerary {
         this.name = name;
     }
 
-    public Boolean getVisited() {
+    public Boolean isVisited() {
         return visited;
     }
 
