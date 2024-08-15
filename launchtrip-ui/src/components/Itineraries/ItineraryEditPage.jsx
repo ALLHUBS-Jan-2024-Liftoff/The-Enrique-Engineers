@@ -7,6 +7,7 @@ import {
   getAddedLocationsFromItinerary,
   removeLocationFromItinerary
 } from "../../services/itineraryService";
+import { markLocationAsVisited } from "../../services/locationsService"
 
 
 export const ItineraryEditPage = () => {
@@ -41,6 +42,8 @@ export const ItineraryEditPage = () => {
             <div className="card-body">
               <LocationCard key={location.id} location={location} />
               <button className="btn btn-danger" onClick={() => removeLocationFromItinerary(itineraryId, location.id)}>Remove From Itinerary</button>
+              <button disabled className="btn btn-danger" onClick={() => markLocationAsVisited(location.id)}>
+              {location.visited ? 'Visited' : 'Unseen'} </button>
             </div>
           ))}
         </div>
