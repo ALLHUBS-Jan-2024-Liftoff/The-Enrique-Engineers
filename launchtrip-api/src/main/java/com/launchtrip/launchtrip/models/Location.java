@@ -37,6 +37,7 @@ public class Location {
         this.visited = false;
     }
 
+
     public Long getId() {
         return id;
     }
