@@ -7,7 +7,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,9 +19,6 @@ public class LocationOfTheDayService {
 
     private static final String BASE_URL = "http://api.geoapify.com/v2/places";
     private static final String API_KEY = "81e201745295492d891b0e474458e63c";
-
-    @Autowired
-    private OkHttpClient httpClient;
 
     public List<Location> getLocationOfTheDay() {
         try {
@@ -37,12 +33,13 @@ public class LocationOfTheDayService {
     private String fetchRandomCity() throws IOException {
         String url = "https://api.geoapify.com/v1/geocode/search?text=city&format=json&apiKey=" + API_KEY;
 
+        OkHttpClient client = new OkHttpClient();
         Request cityRequest = new Request.Builder()
                 .url(url)
                 .method("GET", null)
                 .build();
 
-        try (Response cityResponse = httpClient.newCall(cityRequest).execute()) {
+        try (Response cityResponse = client.newCall(cityRequest).execute()) {
             List<String> cities = new ArrayList<>();
 
             if (cityResponse.isSuccessful()) {
@@ -79,8 +76,10 @@ public class LocationOfTheDayService {
 
         for (String category : categories) {
             String url = BASE_URL + "?categories=" + category + "&filter=place:" + city + "&limit=1&apiKey=" + API_KEY;
+
+            OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder().url(url).build();
-            Response response = httpClient.newCall(request).execute();
+            Response response = client.newCall(request).execute();
             List<Location> places = processApiResponse(response);
 
             if (!places.isEmpty()) {
@@ -106,10 +105,20 @@ public class LocationOfTheDayService {
                     JsonNode properties = feature.path("properties");
                     String name = properties.path("name").asText();
                     String city = properties.path("city").asText();
-                    String address = properties.path("formatted").asText();
+                    String usState = properties.path("state").asText();
+                    String country = properties.path("country").asText();
+                    String postcode = properties.path("postcode").asText();
 
-                    // Assuming you have a constructor that fits this
-                    Location location = new Location(name, city, null, null, null, null, null);
+                    // Extract categories as list
+                    List<String> categories = new ArrayList<>();
+                    for (JsonNode category : properties.path("categories")) {
+                        categories.add(category.asText());
+                    }
+
+                    // Create Location object using the existing constructor
+                    Location location = new Location(name, city, usState, country, postcode, categories);
+
+                    // Add to the list of locations
                     locations.add(location);
                 }
             }
@@ -135,11 +144,11 @@ public class LocationOfTheDayService {
         List<String> tourismCategory = new ArrayList<>();
         tourismCategory.add("tourism");
 
-        defaultLocations.add(new Location("Default Restaurant", "Default City", "default-place-id-1", "Default State", "Default Country", "00000", restaurantCategory));
-        defaultLocations.add(new Location("Default Natural Place", "Default City", "default-place-id-2", "Default State", "Default Country", "00000", naturalCategory));
-        defaultLocations.add(new Location("Default Entertainment", "Default City", "default-place-id-3", "Default State", "Default Country", "00000", entertainmentCategory));
-        defaultLocations.add(new Location("Default Hotel", "Default City", "default-place-id-4", "Default State", "Default Country", "00000", hotelCategory));
-        defaultLocations.add(new Location("Default Tourism Place", "Default City", "default-place-id-5", "Default State", "Default Country", "00000", tourismCategory));
+        defaultLocations.add(new Location("Default Restaurant", "Default City", "Default State", "Default Country", "00000", restaurantCategory));
+        defaultLocations.add(new Location("Default Natural Place", "Default City", "Default State", "Default Country", "00000", naturalCategory));
+        defaultLocations.add(new Location("Default Entertainment", "Default City", "Default State", "Default Country", "00000", entertainmentCategory));
+        defaultLocations.add(new Location("Default Hotel", "Default City", "Default State", "Default Country", "00000", hotelCategory));
+        defaultLocations.add(new Location("Default Tourism Place", "Default City", "Default State", "Default Country", "00000", tourismCategory));
 
         return defaultLocations;
     }
