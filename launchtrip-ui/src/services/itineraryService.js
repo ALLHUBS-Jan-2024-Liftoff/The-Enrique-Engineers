@@ -111,4 +111,24 @@ export const markItineraryAsVisited = async (itineraryId) => {
     console.error("There was an error when toggling visited!", error);
     throw error;
   };
-}
+};
+
+export const submitReview = async (itineraryId, review) => {
+  try {
+    const response = await axios.post(`${BASEAPIURL}/api/itineraries/${itineraryId}/setReviews`, review);
+    return response.data; 
+  } catch (error) {
+    console.error("There was an error adding the review to this itinerary!", error);
+    throw error;
+  }
+};
+
+export const getReviewsForItinerary = async (itineraryId) => {
+  try {
+    const response = await axios.get(`${BASEAPIURL}/api/itineraries/${itineraryId}/getReviews`);
+    return response.data;
+  } catch (error) {
+    console.error("There was an error getting the reviews!", error); 
+    throw error;
+  }
+};

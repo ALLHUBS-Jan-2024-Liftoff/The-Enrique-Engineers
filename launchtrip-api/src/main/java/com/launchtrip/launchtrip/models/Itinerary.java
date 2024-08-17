@@ -1,5 +1,6 @@
 package com.launchtrip.launchtrip.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class Itinerary {
     private Boolean visited;
     
     @OneToMany(mappedBy = "itinerary", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Review> reviews = new ArrayList<>();
 
     @ManyToMany
