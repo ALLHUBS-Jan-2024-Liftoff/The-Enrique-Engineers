@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Route, Routes, Link } from "react-router-dom"
 import { useParams } from "react-router-dom";
 import {
   getItineraryName,
@@ -36,6 +37,9 @@ export const ItineraryReviewPage = () => {
         <div className="card-body">
           <h1>{itineraryName}</h1>
         </div>
+      <div className="card-body">
+        <button className="btn btn-primary"><Link to={"/ItineraryEditPage/" + itineraryId} target="_blank">View Itinerary Details</Link></button>
+      </div>
         <div className="card-body">
           {reviews.length > 0 ? (
             reviews.map(review => (
@@ -45,7 +49,7 @@ export const ItineraryReviewPage = () => {
               </div>
             ))
           ) : (
-            <p>No reviews yet. Be the first to review!</p>
+            <p>No reviews yet. Log your review of this trip here!</p>
           )}
         </div>
         <div className="card-body">
