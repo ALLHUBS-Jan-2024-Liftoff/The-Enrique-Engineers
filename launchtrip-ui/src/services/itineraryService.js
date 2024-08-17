@@ -126,6 +126,7 @@ export const submitReview = async (itineraryId, review) => {
 export const getReviewsForItinerary = async (itineraryId) => {
   try {
     const response = await axios.get(`${BASEAPIURL}/api/itineraries/${itineraryId}/getReviews`);
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error("There was an error getting the reviews!", error); 

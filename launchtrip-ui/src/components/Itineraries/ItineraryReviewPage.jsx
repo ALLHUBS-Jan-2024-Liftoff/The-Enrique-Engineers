@@ -22,7 +22,7 @@ export const ItineraryReviewPage = () => {
 
   useEffect(() => {
     getReviewsForItinerary(itineraryId)
-    .then(setReviews(reviews))
+    .then((reviews) => setReviews(reviews))
     .catch((error) => {
       console.error("There was an error fetching reviews!", error)
     });
