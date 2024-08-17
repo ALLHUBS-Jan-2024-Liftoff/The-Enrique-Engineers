@@ -5,17 +5,7 @@ import { SearchBar } from "./SearchBar";
 //import { NewLocationForm } from "./NewLocationForm";
 
 export const LocationsPage = () => {
-  // const [showAddForm, setShowAddForm] = useState(false);
   const [locations, setLocations] = useState([]);
-
-  // useEffect(() => {
-  //   // Fetch all locations when the component mounts
-  //   fetchLocations()
-  //     .then(setLocations)
-  //     .catch((error) => {
-  //       console.error("There was an error fetching the locations!", error);
-  //     });
-  // }, [locations]);
 
   const handleDeleteLocation = (locationId) => {
     deleteLocation(locationId)
@@ -27,8 +17,8 @@ export const LocationsPage = () => {
       });
   };
 
-  const handleSearch = (searchQuery) => {
-    searchLocations(searchQuery)
+  const handleSearch = (searchQuery, selectedCategories) => {
+    searchLocations(searchQuery, selectedCategories)
       .then(setLocations)
       .catch((error) => {
         console.error("There was an error searching the locations!", error);

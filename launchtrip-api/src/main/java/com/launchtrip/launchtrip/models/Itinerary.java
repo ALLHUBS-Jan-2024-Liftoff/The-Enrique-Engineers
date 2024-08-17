@@ -14,7 +14,8 @@ public class Itinerary {
     private String name;
     private Boolean visited;
 
-    @OneToMany
+    @ManyToMany
+    //@JoinColumn(name = "itineraryId")
     private List<Location> locations = new ArrayList<>();
 
     @ManyToOne
@@ -33,8 +34,12 @@ public class Itinerary {
         return locations;
     }
 
-    public void addLocation(Location newLocation) {
-        locations.add(newLocation);
+    public void addLocation(Location location) {
+        locations.add(location);
+    }
+
+    public void removeLocation(Location location) {
+        locations.remove(location);
     }
 
     public Long getId() {

@@ -1,7 +1,12 @@
 import React from "react";
 import { markLocationAsVisited } from "../../services/locationsService";
+import { addLocationToItinerary } from "../../services/itineraryService";
+import { useParams } from "react-router";
 
-export const LocationCard = ({ location, deleteLocation }) => {
+export const LocationCard = ({ location }) => {
+  
+  const {itineraryId} = useParams();
+
   return (
     <div className="card">
       <div className="card-body">
@@ -12,8 +17,11 @@ export const LocationCard = ({ location, deleteLocation }) => {
           <strong>Country:</strong> {location.country} <br />
           <strong>Postcode:</strong> {location.postcode} <br />
           <strong>Categories:</strong> {location.categories.join(", ")} <br />
-          <button className="btn btn-danger" onClick={() => markLocationAsVisited(location.id)}>
-          {location.visited ? 'Visited' : 'Unseen'} </button>
+          {/* Show a field for paid/free */}
+          <strong>Paid:</strong> {location.paid ? "Paid Attraction" : "Free Attraction"} <br />
+
+          {/*<button className="btn btn-danger" onClick={() => markLocationAsVisited(location.id)}>
+          {location.visited ? 'Visited' : 'Unseen'} </button>*/}
         </p>
       </div>
     </div>

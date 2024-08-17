@@ -2,25 +2,18 @@ import axios from "axios";
 
 const BASEAPIURL = "http://localhost:8080";
 
-export const searchLocations = (searchQuery) => {
-  return axios.get(`${BASEAPIURL}/api/locations/downloadLocationsFromGeoapify`, { params: { searchQuery: searchQuery } })
+export const searchLocations = (searchQuery, selectedCategories) => {
+  return axios.get(`${BASEAPIURL}/api/locations/downloadLocationsFromGeoapify`, { 
+    params: { 
+      searchQuery: searchQuery, 
+      categories: selectedCategories,
+    } 
+  })
     .then(response => response.data)
     .catch(error => {
       throw error;
     });
 };
-
-// export const createLocation = async (name, address) => {
-//   try {
-//     const response = await axios.post(`${BASEAPIURL}/api/locations/new`, null, {
-//       params: { name, address },
-//     });
-//     return response.data;
-//   } catch (error) {
-//     console.error("There was an error creating the location!", error);
-//     throw error;
-//   }
-// };
 
 export const deleteLocation = async (locationId) => {
   try {

@@ -93,6 +93,10 @@ button:focus-visible {
     margin-top: 10px;
   }
 
+  .btn-primary {
+    margin-top: 10px;
+  }
+
   @media (max-width: 768px) {
     .card-container {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -100,3 +104,5 @@ button:focus-visible {
   }  
   
 }
+
+

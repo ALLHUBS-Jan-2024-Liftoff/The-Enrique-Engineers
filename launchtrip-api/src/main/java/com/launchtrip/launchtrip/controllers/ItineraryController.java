@@ -20,14 +20,22 @@ public class ItineraryController {
     @Autowired
     private LocationRepository locationRepository;
 
-    @GetMapping
+    @GetMapping()
     public List<Itinerary> getAllItineraries(){
+        System.out.println("getAllItineraries is being called");
         return itineraryRepository.findAll();
     }
 
-    @PostMapping("/delete")
-    public void deleteItinerary(@RequestParam Long itineraryId) {
-        itineraryRepository.deleteById(itineraryId);
+    @GetMapping("/getAddedLocations/{itineraryId}")
+    public List<Location> getAddedLocationsFromItinerary(@PathVariable Long itineraryId) {
+        Itinerary itineraryToView = itineraryRepository.getReferenceById(itineraryId);
+        return itineraryToView.getLocations();
+    }
+
+    @GetMapping("/getItineraryName/{itineraryId}")
+    public String getItineraryName(@PathVariable Long itineraryId) {
+        Itinerary itineraryToView = itineraryRepository.getReferenceById(itineraryId);
+        return itineraryToView.getName();
     }
 
     @PostMapping("/new")
@@ -38,12 +46,26 @@ public class ItineraryController {
         return itineraryRepository.save(newLocation);
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/addLocationToItinerary")
     public void addLocationToItinerary(@RequestParam Long itineraryId, @RequestParam Long locationId) {
         Itinerary itineraryToEdit = itineraryRepository.getReferenceById(itineraryId);
         Location locationToAdd = locationRepository.getReferenceById(locationId);
 
         itineraryToEdit.addLocation(locationToAdd);;
         itineraryRepository.save(itineraryToEdit);
+    }
+
+    @PostMapping("/removeLocationFromItinerary")
+    public void removeLocationFromItinerary(@RequestParam Long itineraryId, @RequestParam Long locationId) {
+        Itinerary itineraryToEdit = itineraryRepository.getReferenceById(itineraryId);
+        Location locationToRemove = locationRepository.getReferenceById(locationId);
+
+        itineraryToEdit.removeLocation(locationToRemove);
+        itineraryRepository.save(itineraryToEdit);
+    }
+
+    @PostMapping("/delete")
+    public void deleteItinerary(@RequestParam Long itineraryId) {
+        itineraryRepository.deleteById(itineraryId);
     }
 }

@@ -3,13 +3,10 @@ package com.launchtrip.launchtrip.services;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.launchtrip.launchtrip.models.Location;
-import com.launchtrip.launchtrip.models.data.LocationRepository;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
-import org.apache.commons.text.WordUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,8 +16,8 @@ import java.util.List;
 @Service
 public class SearchService {
 
-    @Autowired
-    LocationRepository locationRepository;
+    //@Autowired
+    //LocationRepository locationRepository;
 
     // Todo: Separate out into three separate functions (searchLocationsFromQuery, fetchPlaceId, and fetchLocations) to utilize each separately and reduce overlap
 
@@ -29,6 +26,9 @@ public class SearchService {
 
     public List<Location> searchLocationsFromQuery(String searchQuery) throws IOException {
         // Call Geocoding API to convert search query into PlaceId
+
+        System.out.println("searchLocationsFromQuery() has been called");
+        System.out.println("Search query: " + searchQuery);
 
         if (searchQuery.contains(" ")) {
             searchQuery.replace(" ", "%20");
@@ -64,25 +64,25 @@ public class SearchService {
                 }
             }
 
-            // Start Building URL
+        // Start Building URL
 
-            // Append v2/places
-            String placesUrl = BASE_URL + "/v2/places";
+        // Append v2/places
+        String placesUrl = BASE_URL + "/v2/places";
 
-            // Append Parameters
+        // Append Parameters
 
-            // API Key
-            placesUrl += "?apiKey=" + API_KEY;
+        // API Key
+        placesUrl += "?apiKey=" + API_KEY;
 
-            // Limit
-            placesUrl += "&limit=10";
+        // Limit
+        placesUrl += "&limit=20";
 
-            // Place Types
-            // ToDo: create a method for taking in a place type and converting it to a geoapify category
-            placesUrl += "&categories=entertainment,natural,catering.restaurant,catering.cafe,catering.bar,catering.taproom";
+        // Place Types
+        // NOTE: This is searching all possible categories to put into the database. The selected search categories are filtered in the ---- call.
+        placesUrl += "&categories=entertainment,natural,accommodation,tourism,catering.restaurant,catering.cafe,catering.bar,catering.taproom";
 
-            // Filter Place
-            placesUrl += "&filter=place:" + placeId;
+        // Filter Place
+        placesUrl += "&filter=place:" + placeId;
 
             // Make the HTTP Call
             OkHttpClient placesClient = new OkHttpClient().newBuilder()
@@ -121,7 +121,20 @@ public class SearchService {
                             categories.add(category.asText());
                         }
 
-                        Location location = new Location(name, city, placeId, usState, country, postcode, categories);
+                        //Code Used For Debugging Purposes
+                        /*
+                        System.out.println("Name: " + name);
+                        System.out.println("City: " + city);
+                        System.out.println("Number of Categories: " + categories.stream().count());
+                        System.out.println();
+                        */
+
+                        Location location = new Location(name, city, usState, country, postcode, categories);
+                        /*Added by Brett. Check to see if the location has a 'no_fee.no' attribute*/
+                        if (categories.contains("no_fee.no")) {
+                            location.setPaid(false);
+                        }
+
                         locations.add(location);
                     }
                 }

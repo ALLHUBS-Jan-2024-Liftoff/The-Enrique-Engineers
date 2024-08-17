@@ -1,12 +1,12 @@
 package com.launchtrip.launchtrip.controllers;
 
+import com.launchtrip.launchtrip.models.Itinerary;
 import com.launchtrip.launchtrip.models.Location;
+import com.launchtrip.launchtrip.models.data.ItineraryRepository;
 import com.launchtrip.launchtrip.services.LocationService;
-import com.launchtrip.launchtrip.services.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -18,17 +18,10 @@ public class LocationController {
     private LocationService locationService;
 
     @Autowired
-    private SearchService searchService;
+    private ItineraryRepository itineraryRepository;
 
-    @GetMapping("/search")
-    public List<Location> searchLocations(@RequestParam String searchQuery) {
-        try {
-            return searchService.searchLocationsFromQuery(searchQuery);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    //@Autowired
+    //private SearchService searchService;
 
     @GetMapping("/getStoredLocations")
     public List<Location> getStoredLocations() {
@@ -36,16 +29,23 @@ public class LocationController {
     }
 
     @GetMapping("/downloadLocationsFromGeoapify")
-    public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery) {
+    public List<Location> downloadLocationsFromGeoapify(@RequestParam String searchQuery, @RequestParam String categories) {
         String cityGroup = locationService.downloadLocationsFromGeoapify(searchQuery);
-        return locationService.getLocationsByCity(cityGroup);
+        List<Location> allCityLocations = locationService.getLocationsByCity(cityGroup);
+        List<Location> filteredCityLocations = locationService.filterLocationsByType(allCityLocations, categories);
+        return filteredCityLocations;
     }
 
+    /*
     @PostMapping("/toggleVisited")
     public void toggleAsVisited(@RequestParam Long locationId) {
         System.out.println("Toggling Visited For: " + locationId);
         Location location = locationService.getLocationViaId(locationId);
         locationService.toggleLocationVisited(location);
     }
+     */
+    @PostMapping("/toggleVisited")
+    public void toggleAsVisited(@RequestParam Long itineraryId, @RequestParam Long locationId) {
 
+    }
 }
