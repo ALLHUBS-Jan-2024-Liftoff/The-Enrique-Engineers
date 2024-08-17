@@ -1,9 +1,6 @@
 package com.launchtrip.launchtrip.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class Location {
 
     private String name;
     private String city;
-    private String placeId;
+    //private String placeId;
     private String usState;
     private String country;
     private String postcode;
@@ -24,13 +21,15 @@ public class Location {
     private boolean visited;
     private boolean paid;
 
+    private Long itineraryId;
+
     public Location() {
     }
 
-    public Location(String name, String city, String placeId, String usState, String country, String postcode, List<String> categories) {
+    public Location(String name, String city, String usState, String country, String postcode, List<String> categories) {
         this.name = name;
         this.city = city;
-        this.placeId = placeId;
+        //this.placeId = placeId;
         this.usState = usState;
         this.country = country;
         this.postcode = postcode;
@@ -59,13 +58,13 @@ public class Location {
         this.city = city;
     }
 
-    public java.lang.String getPlaceId() {
+    /*public java.lang.String getPlaceId() {
         return placeId;
     }
 
     public void setPlaceId(java.lang.String placeId) {
         this.placeId = placeId;
-    }
+    }*/
 
     public String getUsState() {
         return usState;
@@ -113,6 +112,10 @@ public class Location {
 
     public void setPaid(boolean paid) {
         this.paid = paid;
+    }
+
+    public Long getItineraryId() {
+        return itineraryId;
     }
 }
 

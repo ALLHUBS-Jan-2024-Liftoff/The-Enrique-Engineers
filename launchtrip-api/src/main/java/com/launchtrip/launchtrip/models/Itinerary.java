@@ -13,11 +13,12 @@ public class Itinerary {
 
     private String name;
     private Boolean visited;
-
+    
     @OneToMany(mappedBy = "itinerary", cascade = CascadeType.ALL)
     private List<Review> reviews = new ArrayList<>();
 
-    @OneToMany
+    @ManyToMany
+    //@JoinColumn(name = "itineraryId")
     private List<Location> locations = new ArrayList<>();
 
     @ManyToOne

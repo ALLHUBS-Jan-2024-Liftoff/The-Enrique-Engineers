@@ -20,8 +20,8 @@ export const LocationCard = ({ location }) => {
           {/* Show a field for paid/free */}
           <strong>Paid:</strong> {location.paid ? "Paid Attraction" : "Free Attraction"} <br />
 
-          <button className="btn btn-danger" onClick={() => markLocationAsVisited(location.id)}>
-          {location.visited ? 'Visited' : 'Unseen'} </button>
+          {/*<button className="btn btn-danger" onClick={() => markLocationAsVisited(location.id)}>
+          {location.visited ? 'Visited' : 'Unseen'} </button>*/}
         </p>
       </div>
     </div>
