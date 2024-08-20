@@ -9,6 +9,7 @@ import { LocationsPage } from './components/Locations/LocationsPage'
 //Added to support React Router
 import ReactDOM from "react-dom/client";
 import { Route, Routes } from "react-router-dom";
+import { ItineraryReviewPage } from './components/Itineraries/ItineraryReviewPage'
 
 
 //Previous code before adding React Router
@@ -34,6 +35,7 @@ function App() {
       <Route path="/" element={<ItinerariesPage />} />
       <Route path="/LocationsPage" element={<LocationsPage />} />
       <Route path="/ItineraryEditPage/:itineraryId" element={<ItineraryEditPage />} />
+      <Route path="/ItineraryReviewPage/:itineraryId" element={<ItineraryReviewPage />} />
     </Routes>
   )
 }
