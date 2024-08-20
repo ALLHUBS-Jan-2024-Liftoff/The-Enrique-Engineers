@@ -82,6 +82,23 @@ export const getAddedLocationsFromItinerary = async (itineraryId) => {
     console.log("Error: ", error);
     console.log("There was an error when retrieving added locations from itinerary: ", itineraryId);
   }
+
+  
+  for (let i = 0; i < addedLocations.length; i++) {
+    let isLocationVisitedUrl = `${BASEAPIURL}/api/locations/getIsLocationVisited/${itineraryId}/${addedLocations[i].id}`;
+    console.log(isLocationVisitedUrl);
+    try {
+      await axios.get(isLocationVisitedUrl).then(function(response) {
+        addedLocations[i].visited = response.data;
+      })
+    } catch (error) {
+      console.log("Error: ", error);
+      console.log("There was an error when trying to get visited property: ", itineraryId, location.id);
+    }
+  }
+
+  console.log("addedLocations[]", addedLocations);
+
   return addedLocations;
 };
 

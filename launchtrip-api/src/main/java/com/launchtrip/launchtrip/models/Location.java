@@ -1,6 +1,8 @@
 package com.launchtrip.launchtrip.models;
 
+import com.launchtrip.launchtrip.models.data.ItineraryLocationRepository;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class Location {
     private String country;
     private String postcode;
     private List<String> categories;
-    private boolean visited;
+    //private boolean visited;
     private boolean paid;
 
     private Long itineraryId;
@@ -34,7 +36,7 @@ public class Location {
         this.country = country;
         this.postcode = postcode;
         this.categories = categories;
-        this.visited = false;
+        //this.visited = false;
         this.paid = true; //Default value of true unless GeoAPIFy shows that it's free
     }
 
@@ -98,13 +100,13 @@ public class Location {
         this.categories = categories;
     }
 
-    public boolean isVisited() {
+    /*public boolean isVisited() {
         return visited;
     }
 
     public void setVisited(boolean visited) {
         this.visited = visited;
-    }
+    }*/
 
     public boolean isPaid() {
         return paid;

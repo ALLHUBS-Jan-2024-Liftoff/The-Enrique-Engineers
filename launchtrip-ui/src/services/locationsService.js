@@ -49,14 +49,32 @@ export const fetchLocations = async () => {
   }
 };
 
-export const markLocationAsVisited = async (locationId) => {
+export const markLocationAsVisited = async (itineraryId, locationId) => {
   try {
+    console.log("itineraryId: " + itineraryId);
+    console.log("locationId: " + locationId);
     await axios.post(`${BASEAPIURL}/api/locations/toggleVisited`, null, {
-      params: { locationId },
+      params: { itineraryId, locationId },
     });
     console.log("No error when toggling visited");
   } catch (error) {
     console.error("There was an error when toggling visited!", error);
     throw error;
   }
+};
+
+export const getIsLocationVisited = async (itineraryId, locationId) => {
+  let requestUrl = `${BASEAPIURL}/api/locations/getIsLocationVisited/${itineraryId}/${locationId}`;
+  try {
+    axios.get(requestUrl).then(function(response) 
+    {
+      console.log("getIsLocationVisited() function");
+      console.log("itineraryId: ", itineraryId);
+      console.log("locationId: ", locationId);
+    });
+  } catch (error) {
+    console.log("Error: ", error);
+    console.log("There was an error when retrieving isLocationVisited: ", itineraryId, locationId);
+  }
+  return false;
 };
