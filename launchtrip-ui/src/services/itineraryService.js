@@ -117,7 +117,6 @@ export const getItineraryName = async (itineraryId) => {
   }
   return itineraryName;
 };
-}
 
 export const markItineraryAsVisited = async (itineraryId) => {
   try {
