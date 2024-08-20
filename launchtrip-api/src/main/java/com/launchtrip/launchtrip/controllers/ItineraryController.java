@@ -65,7 +65,7 @@ public class ItineraryController {
         Itinerary itineraryToEdit = itineraryRepository.getReferenceById(itineraryId);
         Location locationToAdd = locationRepository.getReferenceById(locationId);
 
-        itineraryToEdit.addLocation(locationToAdd);;
+        itineraryToEdit.addLocation(locationToAdd);
         itineraryRepository.save(itineraryToEdit);
     }
 
