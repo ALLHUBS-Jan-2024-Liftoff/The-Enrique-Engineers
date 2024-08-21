@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const LocationOfTheDay = () => {
-    const [location, setLocation] = useState(null);
+    const [location, setLocation] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -10,7 +10,7 @@ const LocationOfTheDay = () => {
         setLoading(true);
         axios.get('http://localhost:8080/api/location-of-the-day')
             .then(response => {
-                setLocation(response.data);
+                setLocation(response.data); 
                 setLoading(false);
             })
             .catch(error => {
@@ -29,8 +29,7 @@ const LocationOfTheDay = () => {
     return (
         <div className="location-of-the-day">
             <h2>Location of the Day</h2>
-            <p><strong>{location.name}</strong></p>
-            <p>{location.address}</p>
+            <p>{location}</p> 
             <button onClick={fetchLocation}>Refresh Location</button>
         </div>
     );
