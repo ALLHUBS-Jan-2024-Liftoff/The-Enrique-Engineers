@@ -1,5 +1,6 @@
 package com.launchtrip.launchtrip.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,10 @@ public class Itinerary {
 
     private String name;
     private Boolean visited;
+    
+    @OneToMany(mappedBy = "itinerary", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Review> reviews = new ArrayList<>();
 
     @ManyToMany
     //@JoinColumn(name = "itineraryId")
@@ -58,11 +63,24 @@ public class Itinerary {
         this.name = name;
     }
 
-    public Boolean getVisited() {
+    public Boolean isVisited() {
         return visited;
     }
 
     public void setVisited(Boolean visited) {
         this.visited = visited;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void addReview (Review review) {
+        if (this.visited) {
+            this.reviews.add(review);
+            review.setItinerary(this);
+        } else {
+            throw new IllegalStateException("Cannot add review unless the itinerary has been visited");
+        }
     }
 }

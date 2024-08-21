@@ -88,7 +88,7 @@ public class LocationService {
         return false;
     }
 
-    public void toggleLocationVisited(Location location) {
+    /*public void toggleLocationVisited(Location location) {
         if (location.isVisited()) {
             location.setVisited(false);
         }
@@ -96,5 +96,5 @@ public class LocationService {
             location.setVisited(true);
         }
         locationRepository.save(location);
-    }
+    }*/
 }
