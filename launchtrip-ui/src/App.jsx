@@ -32,7 +32,7 @@ export default App
 function App() {
   return (
     <div className="app-container" style={{ display: 'flex' }}>
-    <div className="sidebar" style={{ width: '300px', backgroundColor: '#f4f4f4', padding: '20px', position: 'fixed', right: '0', top: '0', height: '100%', boxShadow: '-2px 0 5px rgba(0,0,0,0.1)', overflowY: 'auto' }}>
+    <div className="sidebar" style={{ width: '300px', backgroundColor: '#f4f4f4', padding: '20px', position: 'fixed', right: '0', top: '50', height: '55%', boxShadow: '-2px 0 5px rgba(0,0,0,0.1)', overflowY: 'auto' }}>
       <TripPlanner />
     </div>
     <div className="main-content" style={{ flex: 1, padding: '20px', marginRight: '320px' }}>

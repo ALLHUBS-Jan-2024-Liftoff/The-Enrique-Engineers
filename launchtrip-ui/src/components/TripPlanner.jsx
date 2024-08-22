@@ -19,10 +19,10 @@ function TripPlanner() {
     try {
       const allCityLocations = await searchLocations(city, '');
       const selectedLocations = filterAndSelectLocations(allCityLocations, [
-        'restaurants',
-        'natural',
+        'catering',
+        // 'natural', need to update category name - not yielding results as is
         'entertainment',
-        'accommodation',
+        // 'accommodation', need to update category name - not yielding results as is
         'tourism'
       ]);
       setTripPlan(selectedLocations);
@@ -36,21 +36,30 @@ function TripPlanner() {
 
   const filterAndSelectLocations = (allCityLocations, selectedCategories) => {
     const filteredLocations = [];
-    for (const category of selectedCategories) {
+    const selectedLocationNames = new Set();
+
+    selectedCategories.forEach((category) => {
       const locationsInCategory = allCityLocations.filter(location =>
-        location.categories.includes(category)
+        location.categories.some(apiCategory => apiCategory.includes(category))
       );
-      if (locationsInCategory.length > 0) {
-        const randomLocation = locationsInCategory[Math.floor(Math.random() * locationsInCategory.length)];
+
+      const availableLocations = locationsInCategory.filter(
+        location => !selectedLocationNames.has(location.name)
+      );
+      
+      if (availableLocations.length > 0) {
+        const randomLocation = availableLocations[Math.floor(Math.random() * availableLocations.length)];
         filteredLocations.push(randomLocation);
+        selectedLocationNames.add(randomLocation.name); // Mark location as selected to reduce category dupes
       }
-    }
+    });
+    
     return filteredLocations;
   };
 
   return (
     <div className="trip-planner">
-      <h2>Plan Your Trip</h2>
+      <h2>Know where to go, but not what to do?</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="city">Enter City Name:</label>
         <input
@@ -71,7 +80,7 @@ function TripPlanner() {
           <h3>Trip Plan for {city}</h3>
           <ul>
             {tripPlan.map((location, index) => (
-              <li key={index}>{location.name} ({location.category})</li>
+              <li key={index}>{location.name}</li>
             ))}
           </ul>
         </div>
