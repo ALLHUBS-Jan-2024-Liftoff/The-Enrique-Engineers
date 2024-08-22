@@ -17,8 +17,7 @@ public class LocationOfTheDayService {
 
     public String getRandomLocationName() throws IOException {
 
-        Long randomId = (long) ((Math.random() * 50) + 1);
-
+        Long randomId = (long) ((Math.random() * 40) + 1);
 
         Location location = locationRepository.findById(randomId).orElse(null);
 
