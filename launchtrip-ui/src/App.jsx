@@ -6,6 +6,7 @@ import { ItinerariesPage } from './components/Itineraries/ItinerariesPage'
 import { ItineraryEditPage } from './components/Itineraries/ItineraryEditPage'
 import { LocationsPage } from './components/Locations/LocationsPage'
 import  TripPlanner  from './components/TripPlanner';
+import LocationOfTheDay from './components/Sidebar/LocationOfTheDay';
 
 //Added to support React Router
 import ReactDOM from "react-dom/client";
@@ -36,7 +37,11 @@ function App() {
       <TripPlanner />
     </div>
     <div className="main-content" style={{ flex: 1, padding: '20px', marginRight: '320px' }}>
-    <Routes>
+    <div className="sidebar" style={{ width: '250px', backgroundColor: '#f4f4f4', padding: '10px' }}>
+      <LocationOfTheDay />
+    </div>
+    <div className="main-content" style={{ flex: 1, padding: '10px' }}>
+      <Routes>
       <Route path="/" element={<ItinerariesPage />} />
       <Route path="/LocationsPage" element={<LocationsPage />} />
       <Route path="/ItineraryEditPage/:itineraryId" element={<ItineraryEditPage />} />
@@ -45,6 +50,7 @@ function App() {
     </Routes>
     </div>
   </div>
+ </div>
   );
 }
 
