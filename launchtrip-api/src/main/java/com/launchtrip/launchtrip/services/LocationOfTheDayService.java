@@ -4,7 +4,7 @@ import com.launchtrip.launchtrip.models.Location;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,15 +12,16 @@ public class LocationOfTheDayService {
 
     private final SearchService searchService;
     private List<Location> cachedLocations;  // Cache for locations
+    private int currentIndex = -1;  // Keeps track of the current index
 
     public LocationOfTheDayService(SearchService searchService) {
         this.searchService = searchService;
-        this.cachedLocations = new ArrayList<>();
+        this.cachedLocations = null;
     }
 
     public String getRandomLocationName() throws IOException {
         // Check if the cached locations list is empty
-        if (cachedLocations.isEmpty()) {
+        if (cachedLocations == null || cachedLocations.isEmpty()) {
             System.out.println("Fetching locations from GeoApify API...");
             cachedLocations = searchService.searchLocationsFromQuery("all");
 
@@ -30,16 +31,10 @@ public class LocationOfTheDayService {
             }
         }
 
-        // Initialize index and select a random location
-        int index = 0;
-        for (int i = 1; i < cachedLocations.size(); i++) {
-            if (!cachedLocations.get(i).getName().isEmpty()) {
-                index = i;
-                break;
-            }
-        }
+        // Increment the currentIndex to select the next location
+        currentIndex = (currentIndex + 1) % cachedLocations.size();
 
         // Return the name of the selected location
-        return cachedLocations.get(index).getName();
+        return cachedLocations.get(currentIndex).getName();
     }
 }
