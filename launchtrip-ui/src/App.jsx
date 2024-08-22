@@ -5,7 +5,7 @@ import './App.css'
 import { ItinerariesPage } from './components/Itineraries/ItinerariesPage'
 import { ItineraryEditPage } from './components/Itineraries/ItineraryEditPage'
 import { LocationsPage } from './components/Locations/LocationsPage'
-
+import LoginForm from './components/signupForm/signupForm'
 //Added to support React Router
 import ReactDOM from "react-dom/client";
 import { Route, Routes } from "react-router-dom";

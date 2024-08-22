@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import instance from './AxiosConfig.jsx';
-import './signupForm.css'; 
+import { useNavigate } from 'react-router-dom';
+import { login, register } from  "../../services/loginService"; // Import the service functions
+import './signupForm.css';
 
 const LoginForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [userData, setUserData] = useState({
     username: '',
     password: '',
-    confirmPassword: ''
+    verifyPassword: '' // Use verifyPassword here
   });
+  const navigate = useNavigate(); // Correctly get the navigate function
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,27 +24,21 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       if (isLogin) {
-        const response = await instance.post('/Auth/login', {
-          username: userData.username,
-          password: userData.password
-        });
-        console.log('Login successful:', response.data);
-        // Handle successful login (e.g., redirect to dashboard)
+        const response = await login(userData.username, userData.password);
+        console.log('Login successful:', response);
+        
       } else {
-        if (userData.password !== userData.confirmPassword) {
+        if (userData.password !== userData.verifyPassword) {
           console.error('Passwords do not match.');
           return;
         }
-        const response = await instance.post('/Auth/register', {
-          username: userData.username,
-          password: userData.password
-        });
-        console.log('Registration successful:', response.data);
-        // Handle successful registration (e.g., show success message)
+        const response = await register(userData.username, userData.password);
+        console.log('Registration successful:', response);
+        
       }
     } catch (error) {
-      // console.error('Authentication error:', error);
-      // Handle authentication error (e.g., show error message to user)
+      console.error('Authentication error:', error);
+      // Optionally display an error message to the user
     }
   };
 
@@ -72,12 +68,12 @@ const LoginForm = () => {
         </div>
         {!isLogin && (
           <div>
-            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <label htmlFor="verifyPassword">Verify Password:</label>
             <input
               type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={userData.confirmPassword}
+              id="verifyPassword"
+              name="verifyPassword" // Use verifyPassword here
+              value={userData.verifyPassword}
               onChange={handleChange}
             />
           </div>

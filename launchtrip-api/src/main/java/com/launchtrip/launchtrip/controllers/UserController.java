@@ -4,8 +4,6 @@ import com.launchtrip.launchtrip.models.data.UserRepository;
 import com.launchtrip.launchtrip.models.User;
 import com.launchtrip.launchtrip.models.RegisterDTO;
 import com.launchtrip.launchtrip.models.LoginDTO;
-
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -25,20 +23,18 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     private static final String userSessionKey = "user";
 
-    public User getUserFromSession(HttpSession session) {
+    private User getUserFromSession(HttpSession session) {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         if (userId == null) {
             return null;
         }
 
         Optional<User> user = userRepository.findById(Long.valueOf(userId));
-
         return user.orElse(null);
-
     }
 
     private static void setUserInSession(HttpSession session, User user) {
@@ -46,8 +42,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> processRegistrationForm(@RequestBody @Valid RegisterDTO registerFormDTO,
-                                                     Errors errors, HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> processRegistrationForm(
+            @RequestBody @Valid RegisterDTO registerFormDTO,
+            Errors errors,
+            HttpServletRequest request) {
 
         Map<String, String> response = new HashMap<>();
 
@@ -56,21 +54,20 @@ public class UserController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        User existingUser = userRepository.findByUsername(LoginDTO.getUsername());
+        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
 
         if (existingUser != null) {
             response.put("message", "A user with that username already exists");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
         }
 
-        String password = LoginDTO.getPassword();
-        String verifyPassword = registerFormDTO.getVerifyPassword();
-        if (!password.equals(verifyPassword)) {
+        if (!registerFormDTO.getPassword().equals(registerFormDTO.getVerifyPassword())) {
             response.put("message", "Passwords do not match");
             return ResponseEntity.badRequest().body(response);
         }
 
-        User newUser = new User(RegisterDTO.getUsername(), RegisterDTO.getPassword());
+        // Hash the password before saving
+        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
@@ -79,8 +76,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> processLoginForm(@RequestBody @Valid LoginDTO loginFormDTO,
-                                              Errors errors, HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> processLoginForm(
+            @RequestBody @Valid LoginDTO loginFormDTO,
+            Errors errors,
+            HttpServletRequest request) {
 
         Map<String, String> response = new HashMap<>();
 
@@ -89,16 +88,14 @@ public class UserController {
             return ResponseEntity.badRequest().body(response);
         }
 
-        User theUser = userRepository.findByUsername(LoginDTO.getUsername());
+        User theUser = userRepository.findByUsername(loginFormDTO.getUsername());
 
         if (theUser == null) {
             response.put("message", "The given username does not exist");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
 
-        String password = LoginDTO.getPassword();
-
-        if (!theUser.isMatchingPassword(password)) {
+        if (!theUser.isMatchingPassword(loginFormDTO.getPassword())) {
             response.put("message", "Invalid password");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
@@ -110,7 +107,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
+    public ResponseEntity<Map<String, String>> logout(HttpServletRequest request) {
         request.getSession().invalidate();
         Map<String, String> response = new HashMap<>();
         response.put("message", "Logout successful");
