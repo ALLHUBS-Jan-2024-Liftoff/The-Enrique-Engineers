@@ -22,7 +22,7 @@ public class LocationOfTheDayService {
         Location location = locationRepository.findById(randomId).orElse(null);
 
         if (location != null) {
-            return location.getName();
+            return location.getName() + " ( " + location.getCity() + " ) " + location.getUsState();
         } else {
 
             throw new IOException("No location found with ID: " + randomId);
