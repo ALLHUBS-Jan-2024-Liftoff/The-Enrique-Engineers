@@ -40,6 +40,7 @@ public class Location {
         this.paid = true; //Default value of true unless GeoAPIFy shows that it's free
     }
 
+
     public Long getId() {
         return id;
     }
