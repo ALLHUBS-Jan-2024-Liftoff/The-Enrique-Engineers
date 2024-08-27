@@ -78,3 +78,16 @@ export const getIsLocationVisited = async (itineraryId, locationId) => {
   }
   return false;
 };
+
+export const toggleLocationPaid = async (locationId) => {
+  let requestUrl = `${BASEAPIURL}/api/locations/toggleLocationPaid`;
+  try {
+    console.log("toggleLocationPaid() is being called!");
+    console.log(locationId + " paid property is being toggled");
+    await axios.post(requestUrl, null, {params: { locationId}});
+    console.log("No error when toggling paid");
+  }
+  catch (error) {
+    console.error("There was an error when toggling paid!", error);
+  }
+}

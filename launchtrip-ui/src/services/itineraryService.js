@@ -97,6 +97,18 @@ export const getAddedLocationsFromItinerary = async (itineraryId) => {
     }
   }
 
+  for (let i = 0; i < addedLocations.length; i++) {
+    let locationPriorityUrl = `${BASEAPIURL}/api/locations/getLocationPriority/${itineraryId}/${addedLocations[i].id}`;
+    try {
+      await axios.get(locationPriorityUrl).then(function(response) {
+        addedLocations[i].priority = response.data;
+      })
+    } catch (error) {
+      console.log("Error: ", error);
+      console.log("There was an error when trying to get priority: ", itineraryId, location.id);
+    }
+  }
+
   console.log("addedLocations[]", addedLocations);
 
   return addedLocations;
@@ -126,6 +138,30 @@ export const markItineraryAsVisited = async (itineraryId) => {
     console.log("No error when toggling visited");
   } catch (error) {
     console.error("There was an error when toggling visited!", error);
+    throw error;
+  };
+};
+
+export const increaseLocationPriority = async (itineraryId, locationId) => {
+  try {
+    await axios.post(`${BASEAPIURL}/api/locations/increaseLocationPriority`, null, {
+      params: { itineraryId, locationId },
+    });
+    console.log("No error when increasing priority");
+  } catch (error) {
+    console.error("There was an error when increasing priority!", error);
+    throw error;
+  };
+};
+
+export const decreaseLocationPriority = async (itineraryId, locationId) => {
+  try {
+    await axios.post(`${BASEAPIURL}/api/locations/decreaseLocationPriority`, null, {
+      params: { itineraryId, locationId },
+    });
+    console.log("No error when decreasing priority");
+  } catch (error) {
+    console.error("There was an error when decreasing priority!", error);
     throw error;
   };
 };
