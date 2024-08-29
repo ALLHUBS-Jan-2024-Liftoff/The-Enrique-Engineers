@@ -5,6 +5,7 @@ import com.launchtrip.launchtrip.models.ItineraryLocation;
 import com.launchtrip.launchtrip.models.Location;
 import com.launchtrip.launchtrip.models.data.ItineraryLocationRepository;
 import com.launchtrip.launchtrip.models.data.ItineraryRepository;
+import com.launchtrip.launchtrip.models.data.LocationRepository;
 import com.launchtrip.launchtrip.services.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class LocationController {
 
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Autowired
     private ItineraryRepository itineraryRepository;
@@ -41,14 +45,6 @@ public class LocationController {
         return filteredCityLocations;
     }
 
-    /*
-    @PostMapping("/toggleVisited")
-    public void toggleAsVisited(@RequestParam Long locationId) {
-        System.out.println("Toggling Visited For: " + locationId);
-        Location location = locationService.getLocationViaId(locationId);
-        locationService.toggleLocationVisited(location);
-    }
-     */
     @PostMapping("/toggleVisited")
     public void toggleVisited(@RequestParam Long itineraryId, @RequestParam Long locationId) {
         System.out.println("Toggling Visited For: " + locationId + " On Itinerary: " + itineraryId);
@@ -73,6 +69,82 @@ public class LocationController {
             itineraryLocation.setVisitedLocation(true);
             itineraryLocationRepository.save(itineraryLocation);
         }
+    }
+
+    @PostMapping("/increaseLocationPriority")
+    public void increaseLocationPriority(@RequestParam Long itineraryId, @RequestParam Long locationId) {
+        List<ItineraryLocation> allItineraryLocations = itineraryLocationRepository.findAll();
+        Long currentLocationPriority = 0L;
+        Long revisedLocationPriority = 0L;
+        for (ItineraryLocation itineraryLocation : allItineraryLocations) {
+            if (itineraryLocation.getItineraryId().equals(itineraryId) &&
+                itineraryLocation.getLocationId().equals(locationId)) {
+                currentLocationPriority = itineraryLocation.getPriority();
+                if (currentLocationPriority > 1) {
+                    revisedLocationPriority = currentLocationPriority - 1;
+                    itineraryLocation.setPriority(revisedLocationPriority);
+                    itineraryLocationRepository.save(itineraryLocation);
+                }else {
+                    return;
+                }
+                break;
+            }
+        }
+        for (ItineraryLocation itineraryLocation : allItineraryLocations) {
+            if (itineraryLocation.getItineraryId().equals(itineraryId) &&
+                itineraryLocation.getPriority().equals(revisedLocationPriority) &&
+                !itineraryLocation.getLocationId().equals(locationId)) {
+                itineraryLocation.setPriority(currentLocationPriority);
+                itineraryLocationRepository.save(itineraryLocation);
+                break;
+            }
+        }
+    }
+
+    @PostMapping("/decreaseLocationPriority")
+    public void decreaseLocationPriority(@RequestParam Long itineraryId, @RequestParam Long locationId) {
+        //System.out.println("Changing Priority For: " + locationId + " On Itinerary: " + itineraryId);
+        List<ItineraryLocation> allItineraryLocations = itineraryLocationRepository.findAll();
+        Long currentLocationPriority = 0L;
+        Long revisedLocationPriority = 0L;
+        for (ItineraryLocation itineraryLocation : allItineraryLocations) {
+            if (itineraryLocation.getItineraryId().equals(itineraryId) &&
+                itineraryLocation.getLocationId().equals(locationId)) {
+                currentLocationPriority = itineraryLocation.getPriority();
+                revisedLocationPriority = currentLocationPriority + 1;
+                itineraryLocation.setPriority(revisedLocationPriority);
+                itineraryLocationRepository.save(itineraryLocation);
+                break;
+            }
+        }
+        for (ItineraryLocation itineraryLocation : allItineraryLocations) {
+            if (itineraryLocation.getItineraryId().equals(itineraryId) &&
+                !itineraryLocation.getLocationId().equals(locationId) &&
+                itineraryLocation.getPriority().equals(revisedLocationPriority)) {
+                itineraryLocation.setPriority(currentLocationPriority);
+                itineraryLocationRepository.save(itineraryLocation);
+                break;
+            }
+        }
+    }
+
+    @GetMapping("/getLocationPriority/{itineraryId}/{locationId}")
+    public Long getLocationPriority(@PathVariable Long itineraryId, @PathVariable Long locationId) {
+        List<ItineraryLocation> allItineraryLocations = itineraryLocationRepository.findAll();
+        for (ItineraryLocation itineraryLocation : allItineraryLocations) {
+            if (itineraryLocation.getItineraryId().equals(itineraryId) &&
+                itineraryLocation.getLocationId().equals(locationId)) {
+                return itineraryLocation.getPriority();
+            }
+        }
+        return 0L;
+    }
+
+    @PostMapping("/toggleLocationPaid")
+    public void toggleLocationPaid(@RequestParam Long locationId) {
+        Location selectedLocation = locationRepository.getReferenceById(locationId);
+        selectedLocation.setPaid(!selectedLocation.isPaid());
+        locationRepository.save(selectedLocation);
     }
 
     @GetMapping("/getIsLocationVisited/{itineraryId}/{locationId}")

@@ -6,6 +6,8 @@ import {
   getItineraryName,
   getAddedLocationsFromItinerary,
   removeLocationFromItinerary,
+  increaseLocationPriority,
+  decreaseLocationPriority
 } from "../../services/itineraryService";
 import { markLocationAsVisited } from "../../services/locationsService"
 
@@ -13,7 +15,7 @@ export const ItineraryEditPage = () => {
     const { itineraryId } = useParams();
     const [itineraryName, setItineraryName] = useState([]);
     const [addedLocations, setAddedLocations] = useState([]);
-    const [changePage, setChangePage] = useState(0);
+    const [changePage, setChangePage] = useState(1);
 
     useEffect(() => {
         getItineraryName(itineraryId)
@@ -21,30 +23,33 @@ export const ItineraryEditPage = () => {
           .catch((error) => {
             console.error("There was an error fetching the itinerary name!", error);
           });
-    
-        
-          getAddedLocationsFromItinerary(itineraryId)
+
+        getAddedLocationsFromItinerary(itineraryId)
           .then(setAddedLocations)
           .catch((error) => {
-            console.error(
-              "There was an error fetching the added locations!",
-              error
-            );
+            console.error("There was an error fetching the added locations!", error);
           });
       }, [changePage]);
 
-      const markLocationAsVisitedHandle = (itinId, locationId) => {
+      const markLocationAsVisitedHandle = (itinId, locId) => {
 
-        markLocationAsVisited(itinId, locationId);
+        markLocationAsVisited(itinId, locId);
         setChangePage(changePage + 1);
       }
 
-      const removeLocationFromItineraryHandle = (itinId, locationId) => {
-
-        removeLocationFromItinerary(itinId, locationId);
-        setChangePage(changePage + 2);
+      const removeLocationFromItineraryHandle = (itinId, locId) => {
+        removeLocationFromItinerary(itinId, locId);
+        setChangePage(changePage + 1);
       }
 
+      const increaseLocationPriorityHandle = (itinId, locId) => {
+        increaseLocationPriority(itinId, locId);
+        setChangePage(changePage + 1);
+      }
+      const decreaseLocationPriorityHandle = (itinId, locId) => {
+        decreaseLocationPriority(itinId, locId);
+        setChangePage(changePage + 1);
+      }
 
       return (
         <div className="mt-5 container">
@@ -52,13 +57,16 @@ export const ItineraryEditPage = () => {
             <div className="card-header">Edit Your Itinerary</div>
             <div className="card-body">
               <h1>{itineraryName}</h1>{
-              addedLocations.map((location) => (
+              addedLocations.sort((firstLoc, secLoc) => firstLoc.priority - secLoc.priority).map((location) => (
                 <div className="card-body">
                   <LocationCard key={location.id} location={location} />
                   <button className="btn btn-danger" onClick={() => removeLocationFromItineraryHandle(itineraryId, location.id)}>Remove From Itinerary</button>
                   <button className="btn btn-danger" onClick={() => markLocationAsVisitedHandle(itineraryId, location.id)}>
                     {location.visited ? "Visited" : "Unseen" }
                   </button>
+                  <strong>Priority: {location.priority}</strong>
+                  <button onClick={() => increaseLocationPriorityHandle(itineraryId, location.id)}>Move Up</button>
+                  <button onClick={() => decreaseLocationPriorityHandle(itineraryId, location.id)}>Move Down</button>
                 </div>
               ))}
             </div>
