@@ -149,4 +149,22 @@ export const getReviewsForItinerary = async (itineraryId) => {
     console.error("There was an error getting the reviews!", error); 
     throw error;
   }
+  
 };
+export const fetchUserPoints = async (userId) => {
+  const response = await fetch(`/api/users/${userId}/points`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch user points');
+  }
+  return response.json();
+};
+
+//export const fetchVisitedItineraries = async () => {
+  //try {
+    //const response = await axios.get(`${BASEAPIURL}/api/itineraries/visited`);
+   // return response.data;
+ // } catch (error) {
+    //console.error("There was an error fetching visited itineraries!", error);
+    //throw error;
+ // }
+//};

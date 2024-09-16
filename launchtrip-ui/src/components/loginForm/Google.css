@@ -1,0 +1,36 @@
+.google-login {
+    margin-top: 20px; /* Adjust as needed to position the section */
+    text-align: center;
+  }
+  
+  .google-login p {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .google-login-button {
+    background-image: url('./GoogleButton.jpg'); /* Ensure the image path is correct */
+    background-size: contain; /* Ensures the entire image fits within the button */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-position: center; /* Centers the image within the button */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0; /* Remove default padding, as the image will provide the padding */
+    font-size: 16px;
+    cursor: pointer;
+    width: 60%; /* Adjust width as needed */
+    height: 50px; /* Adjust height to accommodate the image size */
+    display: inline-flex; /* Aligns the content properly */
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+  }
+  
+  .google-login-button span {
+    display: none; /* Hides the text as the button uses an image */
+  }
+  
+  .google-login-button:hover {
+    /* You can add hover effects here if needed */
+    opacity: 0.9; /* Example: slightly reduces opacity on hover */
+  }

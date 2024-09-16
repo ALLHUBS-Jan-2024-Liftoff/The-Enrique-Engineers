@@ -8,27 +8,27 @@ public class LoginDTO {
     @NotNull
     @NotBlank
     @Size(min = 3, max = 20, message = "Invalid username. Must be between 3 and 20 characters.")
-    private static String username;
+    private String username;
 
     @NotNull
     @NotBlank
     @Size(min = 5, max = 30, message = "Invalid password. Must be between 5 and 30 characters.")
-    private static String password;
+    private String password;
 
-    public static String getUsername() {
+    public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
-        LoginDTO.username = username;
+        this.username = username;
     }
 
-    public static String getPassword() {
+    public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        LoginDTO.password = password;
+        this.password = password;
     }
 
 }

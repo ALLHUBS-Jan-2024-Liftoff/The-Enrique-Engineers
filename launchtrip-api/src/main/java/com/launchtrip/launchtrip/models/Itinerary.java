@@ -14,7 +14,7 @@ public class Itinerary {
 
     private String name;
     private Boolean visited;
-    
+
     @OneToMany(mappedBy = "itinerary", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Review> reviews = new ArrayList<>();

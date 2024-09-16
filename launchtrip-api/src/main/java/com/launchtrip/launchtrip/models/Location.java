@@ -121,6 +121,3 @@ public class Location {
         return itineraryId;
     }
 }
-
-
-

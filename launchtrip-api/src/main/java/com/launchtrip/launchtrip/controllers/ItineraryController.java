@@ -1,8 +1,10 @@
 package com.launchtrip.launchtrip.controllers;
 
 import com.launchtrip.launchtrip.models.Itinerary;
+import com.launchtrip.launchtrip.models.ItineraryLocation;
 import com.launchtrip.launchtrip.models.Location;
 import com.launchtrip.launchtrip.models.Review;
+import com.launchtrip.launchtrip.models.data.ItineraryLocationRepository;
 import com.launchtrip.launchtrip.models.data.ItineraryRepository;
 import com.launchtrip.launchtrip.models.data.LocationRepository;
 import com.launchtrip.launchtrip.services.ItineraryService;
@@ -32,6 +34,11 @@ public class ItineraryController {
 
     @Autowired
     private ItineraryService itineraryService;
+
+    @Autowired
+    private ItineraryLocationRepository itineraryLocationRepository;
+
+    private LocationController locationController = new LocationController();
 
     @GetMapping()
     public List<Itinerary> getAllItineraries(){
@@ -67,6 +74,11 @@ public class ItineraryController {
 
         itineraryToEdit.addLocation(locationToAdd);
         itineraryRepository.save(itineraryToEdit);
+
+        ItineraryLocation itineraryLocation = new ItineraryLocation(itineraryId, locationId);
+        itineraryLocationRepository.save(itineraryLocation);
+
+        assignPriorityFromId(itineraryLocation);
     }
 
     @PostMapping("/removeLocationFromItinerary")
@@ -108,6 +120,20 @@ public class ItineraryController {
         System.out.println("Toggling Visited For: " + itineraryId);
         Itinerary itinerary = itineraryService.getItineraryViaId(itineraryId);
         itineraryService.toggleItineraryVisited(itinerary);
+    }
+
+    private void assignPriorityFromId(ItineraryLocation itineraryLocation) {
+        List<ItineraryLocation> allItineraryLocations = itineraryLocationRepository.findAll();
+
+        for (ItineraryLocation itineraryLoc : allItineraryLocations) {
+            if (itineraryLoc.getItineraryId().equals(itineraryLocation.getItineraryId())) {
+                if (itineraryLoc.getLocationId().equals(itineraryLocation.getLocationId())) {
+                    itineraryLoc.setPriority(itineraryLoc.getId());
+                    itineraryLocationRepository.save(itineraryLoc);
+                    break;
+                }
+            }
+        }
     }
 
 }

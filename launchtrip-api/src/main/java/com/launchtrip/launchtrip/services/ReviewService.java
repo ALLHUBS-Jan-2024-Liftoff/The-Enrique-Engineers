@@ -3,6 +3,7 @@ package com.launchtrip.launchtrip.services;
 import com.launchtrip.launchtrip.models.Itinerary;
 import com.launchtrip.launchtrip.models.Review;
 import com.launchtrip.launchtrip.models.data.ItineraryRepository;
+import com.launchtrip.launchtrip.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class ReviewService {
         if (itinerary.isVisited()) {
             itinerary.addReview(review);
             itineraryRepository.save(itinerary);
+            
         } else {
             throw new IllegalStateException("Cannot add review unless itinerary has been visited.");
         }

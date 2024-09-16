@@ -6,27 +6,16 @@ import {
 } from "../../services/itineraryService";
 import { ItineraryTable } from "./ItineraryTable";
 import { NewItineraryForm } from "./NewItineraryForm";
+import Logout from "../logOut/LogOutAction"; // Adjust path as necessary
+import { useNavigate } from 'react-router-dom';
 
 export const ItinerariesPage = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [itineraries, setItineraries] = useState([]);
-
-  /*
-  let needToRefreshItineraries = true;
-
-  if (needToRefreshItineraries == true) {
-    // Fetch all todos when the component mounts
-    fetchItineraries()
-      .then(setItineraries)
-      .catch((error) => {
-        console.error("There was an error fetching the itineraries!", error);
-      });
-    needToRefreshItineraries = false;
-  }
-  */
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
-    // Fetch all todos when the component mounts
+    // Fetch all itineraries when the component mounts
     fetchItineraries()
       .then(setItineraries)
       .catch((error) => {
@@ -37,8 +26,7 @@ export const ItinerariesPage = () => {
   const handleAddItinerary = (name, visited) => {
     addItinerary(name, visited)
       .then((newItinerary) => {
-        setLocations([...itineraries, newItinerary]);
-        //needToRefreshItineraries = true;
+        setItineraries([...itineraries, newItinerary]);
       })
       .catch((error) => {
         console.error("There was an error creating the itinerary!", error);
@@ -51,7 +39,6 @@ export const ItinerariesPage = () => {
         setItineraries(
           itineraries.filter((itinerary) => itinerary.id !== itineraryId)
         );
-        //needToRefreshItineraries = true;
       })
       .catch((error) => {
         console.error("There was an error deleting the itinerary!", error);
@@ -61,10 +48,25 @@ export const ItinerariesPage = () => {
   return (
     <div className="mt-5 container">
       <div className="card">
-        <div className="card-header">Your Itineraries</div>
+        <div className="card-header d-flex justify-content-between align-items-center">
+          <div>
+            Your Itineraries
+          </div>
+          <div>
+            {/* Include the Logout and View Visited Itineraries buttons here */}
+            <button
+              onClick={() => navigate('/visited-itineraries')}
+              className="btn btn-secondary me-2" // Adjust margin-right if needed
+            >
+              View Visited Itineraries
+            </button>
+            <Logout />
+          </div>
+        </div>
         <div className="card-body">
+          {/* Display all itineraries */}
           <ItineraryTable
-            itineraries={itineraries}
+            itineraries={itineraries.filter(itinerary => !itinerary.visited)}
             deleteItinerary={handleDeleteItinerary}
           />
           <button

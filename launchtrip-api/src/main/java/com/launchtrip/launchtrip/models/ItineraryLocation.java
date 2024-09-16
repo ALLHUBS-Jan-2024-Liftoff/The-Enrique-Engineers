@@ -18,12 +18,14 @@ public class ItineraryLocation {
 
     private Boolean visitedLocation;
 
+    private Long priority;
+
     public ItineraryLocation() {}
 
     public ItineraryLocation(Long itineraryId, Long locationId) {
         this.itineraryId = itineraryId;
         this.locationId = locationId;
-        this.visitedLocation = true;
+        this.visitedLocation = false;
     }
 
     public Long getId() {
@@ -56,5 +58,13 @@ public class ItineraryLocation {
 
     public void setVisitedLocation(Boolean visitedLocation) {
         this.visitedLocation = visitedLocation;
+    }
+
+    public Long getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Long priority) {
+        this.priority = priority;
     }
 }
